@@ -6,8 +6,9 @@ import { HiMiniBars3BottomRight } from "react-icons/hi2"
 
 const Navbar = () => {
     const [toggle, setToggle] = useState(false);
+    
     return (
-        <header className='w-full flex justify-between px-8 py-4 mx-auto border-b border-gray-300'>
+        <nav className='w-full flex justify-between px-8 py-4 mx-auto border-b border-gray-300'>
             <a href="/" className='flex items-center gap-1'>
                 <TbBrandAirbnb color='#ff5a60' size={35} />
                 <span className='text-[24px] font-bold text-primary'>airbnb</span>
@@ -22,30 +23,40 @@ const Navbar = () => {
                     <FiSearch color='white' />
                 </button>
             </div>
-            <div className='flex items-center justify-between rounded-full gap-3 px-6 py-2 bg-[#f5f5f5] border border-gray-300 cursor-pointer'>
-                <HiMiniBars3BottomRight onClick={() => setToggle(!toggle)} />
+            <div className='flex items-center justify-between rounded-full gap-3 px-6 py-2 bg-[#f5f5f5] border border-gray-300'>
+                <HiMiniBars3BottomRight className='sm:hidden flex cursor-pointer' onClick={() => setToggle(!toggle)} />
 
-                <div className={`${!toggle ? "flex flex-1 justify-end items-center" : "hidden"}`}>
-                    <div className='p-6 black-gradient  absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl'>
-                        <ul className='list-none flex flex-col gap-4 justify-end items-start'>
-                            <li>Anywhere</li>
-                            <li>Anyweek</li>
-                            <li>Addguest</li>
+                <div className={`${!toggle ? "hidden" : "flex"}
+                 p-6 text-white absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl
+                 backdrop-filter backdrop-blur-lg bg-opacity-70 bg-[#f5f5f5] shadow-md`}>
 
-                        </ul>
-                    </div>
+                    <ul className='list-none flex flex-col gap-4 justify-end items-start'>
+                        <li className='text-gray-600 hover:text-black text-[16px] font-medium cursor-pointer'>Anywhere</li>
+                        <li className='text-gray-600 hover:text-black text-[16px] font-medium cursor-pointer'>Anyweek</li>
+                        <li className='text-gray-600 hover:text-black text-[16px] font-medium cursor-pointer'>Addguest</li>
 
+                    </ul>
                 </div>
 
+                <FaUserCircle className='cursor-pointer opacity-50' onClick={()=>setToggle(!toggle)} size={28} />
 
+                <div className={`${!toggle ? "hidden" : "flex"}
+                 p-6 text-white absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl
+                 backdrop-filter backdrop-blur-lg bg-opacity-80 bg-[#e7e6e6] shadow-md`}>
 
-                <FaUserCircle className='opacity-50' size={28} />
+                    <ul className='list-none flex flex-col gap-4 justify-end items-start'>
+                        <li className='text-gray-600 hover:text-black text-[16px] font-medium cursor-pointer'>Sign up</li>
+                        <li className='text-gray-600 hover:text-black text-[16px] font-medium cursor-pointer'>Login</li>
+                        <li className='text-gray-600 hover:text-black text-[16px] font-medium cursor-pointer'>Profile</li>
+
+                    </ul>
+                </div>
 
             </div>
-            {/* Humberger Menu */}
 
 
-        </header>
+
+        </nav>
     )
 }
 

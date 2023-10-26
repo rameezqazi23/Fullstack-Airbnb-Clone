@@ -1,9 +1,31 @@
+import { Link } from "react-router-dom"
 
 const SignIn = () => {
   return (
-    <div>
-        SignIn
-      
+    <div className="w-full h-full">
+      <div className="fixed w-full px-4 py-16 z-10">
+        <div className="max-w-[500px] h-[600px] mx-auto overflow-visible ">
+          <div className="max-w-[380px] mx-auto py-12 px-7 rounded-md border border-gray-300 ">
+            <h1 className="text-2xl font-bold text-gray-700">Login</h1>
+
+            <form className="w-full flex flex-col py-4">
+              <input type="email" autoComplete="on" placeholder="email" className='p-2 my-2 border border-gray-400 outline-none rounded text-gray-700' required />
+              <input type="password" placeholder="password" className='p-2 my-2 border border-gray-400 outline-none rounded text-gray-700' required/>
+              <button className="bg-primary text-white font-medium text-[18px] p-2 rounded">Sign ip</button>
+            <div className="flex gap-2 mt-4">
+              <p className="text-[16px] text-gray-600">Create new account</p>
+              <Link to='/signup' className="text-[16px] underline font-semibold">Signup</Link>
+            </div>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
     </div>
   )
 }

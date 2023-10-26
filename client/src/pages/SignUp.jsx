@@ -4,7 +4,7 @@ const SignUp = () => {
 
   return (
     <div className="w-full h-full">
-      <div className="fixed w-full px-4 py-16 z-50">
+      <div className="fixed w-full px-4 py-16 z-10">
         <div className="max-w-[500px] h-[600px] mx-auto overflow-visible ">
           <div className="max-w-[380px] mx-auto py-12 px-7 rounded-md border border-gray-300 ">
             <h1 className="text-2xl font-bold text-gray-700">Create Account</h1>

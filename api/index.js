@@ -2,9 +2,10 @@ import express from "express";
 import * as dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import * as path from "path";
 
 import { connectToMongoDb } from "./mongodb/connect.js";
-import userRoutes from "./routes/userRoutes.js"; 
+import userRoutes from "./routes/userRoutes.js";
 import bodyParser from "body-parser";
 
 
@@ -17,6 +18,7 @@ app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.static(path.resolve('./public')))
 
 
 

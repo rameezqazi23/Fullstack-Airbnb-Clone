@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import axios from "axios";
 
 const SignUp = () => {
@@ -7,20 +7,26 @@ const SignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('')
+
+  const navigate = useNavigate();
 
   const handleSignUp = (e) => {
     e.preventDefault();
     console.log("UserData==>", { name, email, password })
 
     axios.post('/signup', { name, email, password })
+      .then(function (response) {
+        if (response.statusText === "OK") {
+          navigate('/signin')
+        } else {
+          setError("This email is already registered")
+        }
 
-    // await fetch("http://localhost:8000/signup", {
-    //   method: 'POST',
-    //   body: JSON.stringify({ name, email, password }),
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   }
-    // })
+      })
+
+    console.log("Signup Error", error)
+
 
 
   }
@@ -31,7 +37,13 @@ const SignUp = () => {
       <div className="fixed w-full px-4 py-16 z-10">
         <div className="max-w-[500px] h-[600px] mx-auto overflow-visible ">
           <div className="max-w-[380px] mx-auto py-12 px-7 rounded-md border border-gray-300 ">
-
+            {error &&
+              (
+                <div>
+                  <p>{error}</p>
+                </div>
+              )
+            }
             <h1 className="text-2xl font-bold text-gray-700">Create Account</h1>
 
             <form onSubmit={handleSignUp} className="w-full flex flex-col py-4">

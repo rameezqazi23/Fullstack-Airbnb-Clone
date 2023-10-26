@@ -6,14 +6,24 @@ const router = express.Router();
 router.post("/signup", async (req, res) => {
     const { name, email, password } = req.body
     // res.status(200).json("Signup Process")
-    const userDoc = await USER.create({
-        name,
-        email,
-        password
-    })
+    try {
+        const userDoc = await USER.create({
+            name,
+            email,
+            password
+        })
 
 
-    res.json(userDoc)
+        res.json(userDoc)
+
+    } catch (error) {
+        console.log("User creation errro", error.message)
+        res.status(400).json(error.message)
+
+    }
 })
+
+
+
 
 export default router;

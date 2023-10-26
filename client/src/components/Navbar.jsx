@@ -14,14 +14,14 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className='w-full flex justify-between px-8 py-4 mx-auto border-b border-gray-300'>
+            <header className='w-full flex justify-between px-8 py-4 mx-auto border-b border-gray-300'>
                 <a href="/" className='flex items-center gap-1'>
                     <TbBrandAirbnb color='#ff5a60' size={35} />
                     <span className='text-[24px] font-bold text-primary'>airbnb</span>
                 </a>
                 <div className='sm:flex hidden items-center rounded-full gap-3 px-6 py-2 bg-[#f5f5f5] shadow-md border border-gray-300'>
                     <p className='cursor-pointer font-semibold text-gray-500 hover:text-black'>Anywhere</p>
-                    <d className="border border-l border-gray-300 h-[18px]"></d>
+                    <div className="border border-l border-gray-300 h-[18px]"></div>
                     <p className='cursor-pointer font-semibold text-gray-500 hover:text-black'>Anyweek</p>
                     <div className="border border-l border-gray-300 h-[18px]"></div>
                     <p className='cursor-pointer font-semibold text-gray-500 hover:text-black'>Add guest</p>
@@ -61,7 +61,7 @@ const Navbar = () => {
                     </div>
 
                 </div>
-            </nav>
+            </header>
         </>
     )
 }

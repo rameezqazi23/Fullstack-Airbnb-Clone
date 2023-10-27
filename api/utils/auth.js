@@ -15,13 +15,16 @@ export const createTokenForUser = (user) => {
     }
 
     const token = jwt.sign(payload, secretKey)
+
     console.log("Token data==>", token)
+
     return token;
 
 }
 
 export const validateToken = (token) => {
     if (!token) throw new Error("Unverified Token");
+    // if (!token) return null
 
     try {
         return jwt.verify(token, secretKey)

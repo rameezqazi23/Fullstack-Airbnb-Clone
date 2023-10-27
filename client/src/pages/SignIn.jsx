@@ -18,8 +18,6 @@ const SignIn = () => {
       alert("Sign in Success")
       navigate('/')
 
-
-
     } catch (error) {
       console.log("Login Error==>", error)
       setError("Incorrect email or password")
@@ -61,10 +59,10 @@ const SignIn = () => {
 
             <form onSubmit={handleSignIn} className="w-full flex flex-col py-4">
 
-              <input onChange={(e) => setEmail(e.target.value)} type="email" autoComplete="on" placeholder="email"
+              <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" autoComplete="on" placeholder="email"
                 className='p-2 my-2 border border-gray-400 outline-none rounded text-gray-700' required />
 
-              <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="password"
+              <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" placeholder="password"
                 className='p-2 my-2 border border-gray-400 outline-none rounded text-gray-700' required />
 
               <button type="submit" className="bg-primary text-white font-medium text-[18px] p-2 rounded">Sign in</button>

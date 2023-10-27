@@ -14,8 +14,11 @@ const SignIn = () => {
     e.preventDefault();
 
     try {
-      await axios.post('/signin', { email, password })
+      await axios.post('/signin', { email, password });
+      alert("Sign in Success")
       navigate('/')
+
+
 
     } catch (error) {
       console.log("Login Error==>", error)
@@ -45,6 +48,15 @@ const SignIn = () => {
       <div className="fixed w-full px-4 py-16 z-10">
         <div className="max-w-[500px] h-[600px] mx-auto overflow-visible ">
           <div className="max-w-[380px] mx-auto py-12 px-7 rounded-md border border-gray-300 ">
+
+            {error &&
+              (
+                <div className="text-[14px] text-red-600 text-center mb-8">
+                  <p>{error}</p>
+                </div>
+              )
+            }
+
             <h1 className="text-2xl font-bold text-gray-700">Login</h1>
 
             <form onSubmit={handleSignIn} className="w-full flex flex-col py-4">

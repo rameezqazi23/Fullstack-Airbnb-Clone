@@ -21,12 +21,12 @@ export const createTokenForUser = (user) => {
 }
 
 export const validateToken = (token) => {
-    if (!token) return null;
+    if (!token) throw new Error("Unverified Token");
 
     try {
         return jwt.verify(token, secretKey)
     } catch (error) {
-        return console.log(error.message)
+        return console.log("Token validation error", error)
 
     }
 

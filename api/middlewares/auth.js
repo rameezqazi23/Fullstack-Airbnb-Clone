@@ -12,7 +12,7 @@ export const checkAuthenticationCookie = (cookieName) => {
             req.user = userPayload
 
         } catch (error) {
-            console.log("Authentication check error", error.message)
+            console.log("Authentication check error", error)
 
         } return next();
 

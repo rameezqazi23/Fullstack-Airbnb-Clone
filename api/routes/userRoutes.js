@@ -27,7 +27,7 @@ router.post("/signin", async (req, res) => {
 
     try {
         const token = await USER.matchPassword(email, password)
-        res.cookie("userToken", token)
+        res.cookie("userToken", token).json(token)
 
 
     } catch (error) {

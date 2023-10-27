@@ -13,12 +13,11 @@ router.post("/signup", async (req, res) => {
             password
         })
 
-
         res.json(userDoc)
 
     } catch (error) {
         console.log("User creation error", error.message)
-        res.status(400).json(error.message)
+        res.status(400).json(error)
 
     }
 })

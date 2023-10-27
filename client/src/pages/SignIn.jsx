@@ -13,19 +13,28 @@ const SignIn = () => {
   const handleSignIn = async (e) => {
     e.preventDefault();
 
-    await axios.post('/signin', { email, password })
-      .then(function (response) {
-        console.log(response)
+    try {
+      await axios.post('/signin', { email, password })
+      navigate('/')
 
-        if (response.statusText === "OK") {
-          console.log("User Sign In success==>", { email, password })
-          navigate('/')
-        } else {
-          console.log("Login Error==>")
-          setError("This email is already registered")
-        }
-      })
+    } catch (error) {
+      console.log("Login Error==>", error)
+      setError("Incorrect email or password")
 
+    }
+
+    // .then(function (response) {
+    //   console.log(response)
+
+    //   if (response.statusText === "OK") {
+    //     console.log("User Sign In success==>", { email, password })
+    //     navigate('/')
+
+    //   } else {
+    //     console.log("Login Error==>")
+    //     setError("This email is already registered")
+    //   }
+    // })
 
 
   }
@@ -46,7 +55,7 @@ const SignIn = () => {
               <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="password"
                 className='p-2 my-2 border border-gray-400 outline-none rounded text-gray-700' required />
 
-              <button type="submit" className="bg-primary text-white font-medium text-[18px] p-2 rounded">Sign ip</button>
+              <button type="submit" className="bg-primary text-white font-medium text-[18px] p-2 rounded">Sign in</button>
 
               <div className="flex gap-2 mt-4">
                 <p className="text-[16px] text-gray-600">Create new account</p>

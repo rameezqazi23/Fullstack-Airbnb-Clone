@@ -14,17 +14,26 @@ const SignUp = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
 
-    await axios.post('/signup', { name, email, password })
-      .then(function (response) {
+    try {
+      await axios.post('/signup', { name, email, password })
 
-        if (response.statusText === "OK") {
-          navigate('/signin')
-        }
+      navigate('/signin')
+      
+    } catch (error) {
+      console.log("Signup Error", error)
+      setError("This email is already registered")
 
-      }).catch(function (error) {
-        console.log("Signup Error", error)
-        setError("This email is already registered")
-      })
+    }
+    // .then(function (response) {
+
+    //   if (response.statusText === "OK") {
+    //     navigate('/signin')
+    //   }
+
+    // }).catch(function (error) {
+    //   console.log("Signup Error", error)
+    //   setError("This email is already registered")
+    // })
 
 
 

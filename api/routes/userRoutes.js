@@ -17,10 +17,26 @@ router.post("/signup", async (req, res) => {
         res.json(userDoc)
 
     } catch (error) {
-        console.log("User creation errro", error.message)
+        console.log("User creation error", error.message)
         res.status(400).json(error.message)
 
     }
+})
+
+router.post("/signin", async (req, res) => {
+    const { email, password } = req.body
+
+    try {
+        const token = await USER.matchPassword(email, password)
+        res.cookie("userToken", token)
+
+
+    } catch (error) {
+        console.log("Login Error", error)
+        res.json(error)
+    }
+
+
 })
 
 

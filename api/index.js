@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import * as path from "path";
 
 import { connectToMongoDb } from "./mongodb/connect.js";
+import { checkAuthenticationCookie } from "./middlewares/auth.js";
 import userRoutes from "./routes/userRoutes.js";
 import bodyParser from "body-parser";
 
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.resolve('./public')))
+app.use(checkAuthenticationCookie("userToken"))
 
 
 

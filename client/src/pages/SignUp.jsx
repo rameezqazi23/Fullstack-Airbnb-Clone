@@ -22,13 +22,12 @@ const SignUp = () => {
         }
 
       }).catch(function (error) {
-        console.log(error)
+        console.log("Signup Error", error)
         setError("This email is already registered")
       })
 
 
 
-    console.log("Signup Error", error)
 
 
 

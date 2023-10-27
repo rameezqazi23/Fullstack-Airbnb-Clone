@@ -11,19 +11,22 @@ const SignUp = () => {
 
   const navigate = useNavigate();
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    console.log("UserData==>", { name, email, password })
 
-    axios.post('/signup', { name, email, password })
+    await axios.post('/signup', { name, email, password })
       .then(function (response) {
+
         if (response.statusText === "OK") {
           navigate('/signin')
-        } else {
-          setError("This email is already registered")
         }
 
+      }).catch(function (error) {
+        console.log(error)
+        setError("This email is already registered")
       })
+
+
 
     console.log("Signup Error", error)
 
@@ -39,7 +42,7 @@ const SignUp = () => {
           <div className="max-w-[380px] mx-auto py-12 px-7 rounded-md border border-gray-300 ">
             {error &&
               (
-                <div>
+                <div className="text-[14px] text-red-600 text-center mb-8">
                   <p>{error}</p>
                 </div>
               )

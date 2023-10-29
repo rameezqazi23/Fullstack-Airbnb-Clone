@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios";
+import { useContext } from "react";
+import { UserContext } from '../context/userContext';
 
 const SignIn = () => {
 
@@ -8,13 +10,17 @@ const SignIn = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  const { setUser } = useContext(UserContext);
+
   const navigate = useNavigate();
 
   const handleSignIn = async (e) => {
     e.preventDefault();
 
     try {
-      await axios.post('/signin', { email, password });
+      const {data} = await axios.post('/signin', { email, password });
+      setUser(data)
+
       alert("Sign in Success")
       navigate('/')
 

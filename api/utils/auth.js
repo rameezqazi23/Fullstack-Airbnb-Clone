@@ -28,6 +28,7 @@ export const validateToken = (token) => {
 
     try {
         return jwt.verify(token, secretKey)
+        
     } catch (error) {
         return console.log("Token validation error", error)
 

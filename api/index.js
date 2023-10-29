@@ -7,27 +7,29 @@ import * as path from "path";
 import { connectToMongoDb } from "./mongodb/connect.js";
 import { checkAuthenticationCookie } from "./middlewares/auth.js";
 import userRoutes from "./routes/userRoutes.js";
-import bodyParser from "body-parser";
 
 
+//configurations
 const app = express();
 dotenv.config();
 const PORT = 8000;
-
-//Middlewares
-app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-app.use(cookieParser());
-app.use(express.static(path.resolve('./public')))
-app.use(checkAuthenticationCookie("userToken"))
-
 
 
 //MongoDB Connection
 connectToMongoDb(process.env.MONGODB_URL)
     .then(() => console.log("Mongodb Connected Successfully"))
     .catch(() => console.log("Mongodb Connection error"))
+
+
+
+//Middlewares
+app.use(cookieParser());
+app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(checkAuthenticationCookie("userToken"))
+app.use(express.static(path.resolve('./public')))
+
 
 //Home route
 app.get('/', (req, res) => {

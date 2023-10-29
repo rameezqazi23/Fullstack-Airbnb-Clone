@@ -24,10 +24,12 @@ router.post("/signup", async (req, res) => {
 
 router.post("/signin", async (req, res) => {
     const { email, password } = req.body
+    const userDoc = await USER.findOne({ email })
+
 
     try {
         const token = await USER.matchPassword(email, password)
-        res.cookie("userToken", token).json(token)
+        res.cookie("userToken", token).json(userDoc)
 
 
     } catch (error) {
@@ -37,8 +39,6 @@ router.post("/signin", async (req, res) => {
 
 
 })
-
-
 
 
 export default router;

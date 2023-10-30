@@ -5,7 +5,7 @@ dotenv.config();
 
 const secretKey = "&&^&*%R$WEFCFGR%^CD%$^#%&^TV";
 
-export const createTokenForUser = (user) => {
+const createTokenForUser = (user) => {
     const payload = {
         _id: user._id,
         name: user.name,
@@ -22,17 +22,23 @@ export const createTokenForUser = (user) => {
 
 }
 
-export const validateToken = (token) => {
+const validateToken = (token) => {
     if (!token) throw new Error("Unverified Token");
     // if (!token) return null
 
     try {
-        return jwt.verify(token, secretKey)
-        
+        return jwt.verify(JSON.stringify(token), secretKey)
+
     } catch (error) {
+        console.log("my token========>", token)
         return console.log("Token validation error", error)
 
     }
 
+}
+
+export {
+    createTokenForUser,
+    validateToken
 }
 

@@ -1,5 +1,6 @@
 import USER from "../models/user.js";
 import { validateToken } from "../utils/auth.js";
+import cookies from "cookie-parser";
 
 export const checkAuthenticationCookie = (cookieName) => {
     return (req, res, next) => {

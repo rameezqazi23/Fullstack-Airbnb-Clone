@@ -1,16 +1,30 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { TbBrandAirbnb } from "react-icons/tb";
 import { FiSearch } from "react-icons/fi";
 import { FaUserCircle } from "react-icons/fa";
 import { HiMiniBars3BottomRight } from "react-icons/hi2"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/userContext';
+import axios from 'axios';
 
 const Navbar = () => {
     const [toggle, setToggle] = useState(false);
+    const navigate = useNavigate()
+
     const handlePopUp = () => {
         setToggle(false);
     }
 
+    const { user, setUser } = useContext(UserContext);
+    console.log("User context from navbar===>", user)
+
+    // const handleLogOut = async () => {
+    //     await axios.post('/logout')
+    //     setUser(null)
+    //     navigate('/signin')
+
+
+    // }
 
     return (
         <>
@@ -45,12 +59,27 @@ const Navbar = () => {
                         </ul>
                     </div>
 
+                    {user &&
+                        <div>
+                            <p>{user.name}</p>
+                        </div>
+                    }
 
                     <FaUserCircle className='cursor-pointer opacity-50' onClick={() => setToggle(!toggle)} size={28} />
 
                     <div className={`${!toggle ? "hidden" : "flex"}
                  p-6 text-white absolute top-20 right-0 mx-4 my-2 min-w-[180px] z-20 rounded-xl
                  backdrop-filter backdrop-blur-lg bg-opacity-80 bg-[#e7e6e6] shadow-md`}>
+                        {!user &&
+
+                            <div className='list-none flex flex-col gap-4 justify-end items-start'>
+                                <Link onClick={handlePopUp} to='/' className='text-gray-500 hover:text-black text-[16px] font-medium cursor-pointer'>Home</Link>
+                                <Link onClick={handlePopUp} to='/profile' className='text-gray-500 hover:text-black text-[16px] font-medium cursor-pointer'>Profile</Link>
+                                <Link onClick={handlePopUp} to='/logout' className='text-gray-500 hover:text-black text-[16px] font-medium cursor-pointer'>Logout</Link>
+
+                            </div>
+                        }
+
 
                         <div className='list-none flex flex-col gap-4 justify-end items-start'>
                             <Link onClick={handlePopUp} to='/signup' className='text-gray-500 hover:text-black text-[16px] font-medium cursor-pointer'>Sign up</Link>
@@ -58,6 +87,7 @@ const Navbar = () => {
                             <Link onClick={handlePopUp} to='/profile' className='text-gray-500 hover:text-black text-[16px] font-medium cursor-pointer'>Profile</Link>
 
                         </div>
+
                     </div>
 
                 </div>

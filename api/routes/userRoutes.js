@@ -40,5 +40,13 @@ router.post("/signin", async (req, res) => {
 
 })
 
+router.get("/profile", (req, res) => {
+    const { token } = req.cookies;
+    res.json({ token })
+})
+
+
+
+
 
 export default router;

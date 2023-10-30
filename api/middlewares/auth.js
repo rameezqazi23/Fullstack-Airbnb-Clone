@@ -1,27 +1,27 @@
-import USER from "../models/user.js";
-import { validateToken } from "../utils/auth.js";
-import cookies from "cookie-parser";
+// import USER from "../models/user.js";
+// import { validateToken } from "../utils/auth.js";
+// import cookies from "cookie-parser";
 
-export const checkAuthenticationCookie = (cookieName) => {
-    return (req, res, next) => {
-        const tokenCookieValue = req.cookies[cookieName]
+// export const checkAuthenticationCookie = (cookieName) => {
+//     return (req, res, next) => {
+//         const tokenCookieValue = req.cookies[cookieName]
 
-        console.log("Token cookie value====>", tokenCookieValue)
+//         console.log("Token cookie value====>", tokenCookieValue)
 
-        if (!tokenCookieValue) {
-            return next();
-        }
+//         if (!tokenCookieValue) {
+//             return next();
+//         }
 
-        try {
-            const userPayload = validateToken(tokenCookieValue);
-            req.user = userPayload;
+//         try {
+//             const userPayload = validateToken(tokenCookieValue);
+//             req.user = userPayload;
 
-        } catch (error) {
-            console.log(error.message)
+//         } catch (error) {
+//             console.log(error.message)
 
-        }
-        return next();
+//         }
+//         return next();
 
-    }
+//     }
 
-}
+// }

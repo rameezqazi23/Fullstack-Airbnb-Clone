@@ -1,7 +1,14 @@
 import express from "express";
 import USER from "../models/user.js";
-const router = express.Router();
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
+
+const router = express.Router();
+const app = express();
+
+const salt = bcrypt.genSaltSync(10); //generate encrypted key for 10 rounds
+const secretKey = "&&^&*%R$WEFCFGR%^CD%$^#%&^TV";
 
 router.post("/signup", async (req, res) => {
     const { name, email, password } = req.body
@@ -10,7 +17,8 @@ router.post("/signup", async (req, res) => {
         const userDoc = await USER.create({
             name,
             email,
-            password
+            salt: salt,
+            password: bcrypt.hashSync(password, salt)
         })
 
         res.json(userDoc)
@@ -24,17 +32,29 @@ router.post("/signup", async (req, res) => {
 
 router.post("/signin", async (req, res) => {
     const { email, password } = req.body
-    const userDoc = await USER.findOne({ email })
 
+    const user = await USER.findOne({ email })
 
-    try {
-        const token = await USER.matchPassword(email, password)
-        res.cookie("userToken", token).json(userDoc)
+    if (user) {
+        const matchPassword = bcrypt.compareSync(password, user.password)
+        if (matchPassword) {
+            const payload = {
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                profileImageUrl: user.profileImageUrl,
+                verified: user.verified
+            }
+            jwt.sign(payload, secretKey, {}, (err, token) => {
+                if (err) throw err;
+                res.cookie("userToken", token).json(user)
+            })
+        } else {
+            res.status(422).json("Incorrect Password")
+        }
 
-
-    } catch (error) {
-        console.log("Login Error", error)
-        res.json(error)
+    } else {
+        res.json("User not found!!")
     }
 
 
@@ -43,6 +63,10 @@ router.post("/signin", async (req, res) => {
 router.get("/profile", (req, res) => {
     const { token } = req.cookies;
     res.json({ token })
+})
+
+router.post("/logout", (req, res) => {
+    res.clearCookie("userToken")
 })
 
 

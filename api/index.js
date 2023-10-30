@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import * as path from "path";
 
 import { connectToMongoDb } from "./mongodb/connect.js";
-import { checkAuthenticationCookie } from "./middlewares/auth.js";
+// import { checkAuthenticationCookie } from "./middlewares/auth.js";
 import userRoutes from "./routes/userRoutes.js";
 
 
@@ -23,11 +23,11 @@ connectToMongoDb(process.env.MONGODB_URL)
 
 
 //Middlewares
-app.use(cookieParser());
 app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(checkAuthenticationCookie("userToken"))
+// app.use(checkAuthenticationCookie("userToken"))
+app.use(cookieParser());
 app.use(express.static(path.resolve('./public')))
 
 

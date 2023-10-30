@@ -18,13 +18,13 @@ const Navbar = () => {
     const { user, setUser } = useContext(UserContext);
     console.log("User context from navbar===>", user)
 
-    // const handleLogOut = async () => {
-    //     await axios.post('/logout')
-    //     setUser(null)
-    //     navigate('/signin')
+    const handleLogOut = async () => {
+        await axios.post('/logout')
+        setUser(null)
+        navigate('/signin')
 
 
-    // }
+    }
 
     return (
         <>
@@ -70,12 +70,12 @@ const Navbar = () => {
                     <div className={`${!toggle ? "hidden" : "flex"}
                  p-6 text-white absolute top-20 right-0 mx-4 my-2 min-w-[180px] z-20 rounded-xl
                  backdrop-filter backdrop-blur-lg bg-opacity-80 bg-[#e7e6e6] shadow-md`}>
-                        {!user &&
+                        {user &&
 
                             <div className='list-none flex flex-col gap-4 justify-end items-start'>
                                 <Link onClick={handlePopUp} to='/' className='text-gray-500 hover:text-black text-[16px] font-medium cursor-pointer'>Home</Link>
                                 <Link onClick={handlePopUp} to='/profile' className='text-gray-500 hover:text-black text-[16px] font-medium cursor-pointer'>Profile</Link>
-                                <Link onClick={handlePopUp} to='/logout' className='text-gray-500 hover:text-black text-[16px] font-medium cursor-pointer'>Logout</Link>
+                                <Link onClick={{ handlePopUp, handleLogOut }} to='/logout' className='text-gray-500 hover:text-black text-[16px] font-medium cursor-pointer'>Logout</Link>
 
                             </div>
                         }

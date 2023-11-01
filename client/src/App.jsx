@@ -1,6 +1,6 @@
 import { Navbar } from "./components"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Home, Profile, SignIn, SignUp } from "./pages";
+import { Account, Home, SignIn, SignUp } from "./pages";
 import axios from "axios";
 import { UserContextProvider } from "./context/userContext";
 
@@ -19,7 +19,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/account/:subpage?" element={<Account />} />
           </Routes>
         </Router>
       </UserContextProvider>

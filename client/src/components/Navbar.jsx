@@ -20,7 +20,6 @@ const Navbar = () => {
     }
 
     const { user, setUser } = useContext(UserContext);
-    console.log("User context from navbar===>", user)
 
     const handleLogOut = async () => {
         await axios.post('/logout')
@@ -99,7 +98,7 @@ const Navbar = () => {
                                 <div className='list-none flex flex-col gap-4 justify-end items-start'>
                                     <Link onClick={handlePopUp} to='/signup' className='text-gray-500 hover:text-black text-[16px] font-medium cursor-pointer'>Sign up</Link>
                                     <Link onClick={handlePopUp} to='/signin' className='text-gray-500 hover:text-black text-[16px] font-medium cursor-pointer'>Login</Link>
-                                    <Link onClick={handlePopUp} to='/profile' className='text-gray-500 hover:text-black text-[16px] font-medium cursor-pointer'>Profile</Link>
+                                    <Link onClick={handlePopUp} to='/' className='text-gray-500 hover:text-black text-[16px] font-medium cursor-pointer'>Guest</Link>
 
                                 </div>
                             )
@@ -107,7 +106,7 @@ const Navbar = () => {
                             (
                                 <div className='list-none flex flex-col gap-4 justify-end items-start'>
                                     <Link onClick={handlePopUp} to='/' className='text-gray-500 hover:text-black text-[16px] font-medium cursor-pointer'>Home</Link>
-                                    <Link onClick={handlePopUp} to='/profile' className='text-gray-500 hover:text-black text-[16px] font-medium cursor-pointer'>Profile</Link>
+                                    <Link onClick={handlePopUp} to='/account' className='text-gray-500 hover:text-black text-[16px] font-medium cursor-pointer'>My Account</Link>
                                     <Link onClick={() => { handlePopUp(), handleLogOut() }} to='/logout' className='text-gray-500 hover:text-black text-[16px] font-medium cursor-pointer'>Logout</Link>
 
                                 </div>

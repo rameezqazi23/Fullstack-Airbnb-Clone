@@ -31,34 +31,41 @@ router.post("/signup", async (req, res) => {
 })
 
 router.post("/signin", async (req, res) => {
-    const { email, password } = req.body
+    const { email, password } = req.body;
 
-    const user = await USER.findOne({ email })
+    try {
+        const user = await USER.findOne({ email });
 
-    if (user) {
-        const matchPassword = bcrypt.compareSync(password, user.password)
-        if (matchPassword) {
-            const payload = {
-                _id: user._id,
-                name: user.name,
-                email: user.email,
-                profileImageUrl: user.profileImageUrl,
-                verified: user.verified
+        if (user) {
+            const matchPassword = bcrypt.compareSync(password, user.password);
+
+            if (matchPassword) {
+                const payload = {
+                    _id: user._id,
+                    name: user.name,
+                    email: user.email,
+                    profileImageUrl: user.profileImageUrl,
+                    verified: user.verified
+                };
+
+                jwt.sign(payload, secretKey, {}, (err, token) => {
+                    if (err) throw err;
+                    res.cookie("userToken", token).json(user);
+                });
+            } else {
+                // Incorrect password or email, send a generic error response
+                res.status(401).json({ error: "Incorrect email or password" });
             }
-            jwt.sign(payload, secretKey, {}, (err, token) => {
-                if (err) throw err;
-                res.cookie("userToken", token).json(user)
-            })
         } else {
-            res.status(422).json("Incorrect Password")
+            // User not found or incorrect email, send a generic error response
+            res.status(401).json({ error: "Incorrect email or password" });
         }
-
-    } else {
-        res.json("User not found!!")
+    } catch (error) {
+        console.error("Error during sign-in:", error);
+        res.status(500).json({ error: "Internal Server Error" });
     }
+});
 
-
-})
 
 router.get("/profile", (req, res) => {
     const { token } = req.cookies;

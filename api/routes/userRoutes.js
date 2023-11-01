@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken";
 
 
 const router = express.Router();
-const app = express();
 
 const salt = bcrypt.genSaltSync(10); //generate encrypted key for 10 rounds
 const secretKey = "&&^&*%R$WEFCFGR%^CD%$^#%&^TV";
@@ -35,6 +34,7 @@ router.post("/signin", async (req, res) => {
 
     try {
         const user = await USER.findOne({ email });
+        console.log("User data==>", user)
 
         if (user) {
             const matchPassword = bcrypt.compareSync(password, user.password);
@@ -69,14 +69,22 @@ router.post("/signin", async (req, res) => {
 
 router.get("/profile", (req, res) => {
     const { token } = req.cookies;
-    res.json({ token })
+    if (token) {
+        jwt.verify(token, secretKey, {}, async (err, user) => {
+            if (err) throw err;
+            const userDoc = await USER.findById(user._id)
+            console.log("user profile==>", userDoc)
+            res.json(userDoc)
+
+        })
+    } else {
+        res.json(null)
+    }
 })
 
 router.post("/logout", (req, res) => {
-    res.clearCookie("userToken")
+    res.clearCookie("userToken").json("logged out")
 })
-
-
 
 
 

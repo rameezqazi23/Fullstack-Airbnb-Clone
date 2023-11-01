@@ -23,11 +23,11 @@ connectToMongoDb(process.env.MONGODB_URL)
 
 
 //Middlewares
+app.use(cookieParser());
 app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 // app.use(checkAuthenticationCookie("userToken"))
-app.use(cookieParser());
 app.use(express.static(path.resolve('./public')))
 
 
@@ -38,5 +38,9 @@ app.get('/', (req, res) => {
 
 //external routes
 app.use('/', userRoutes)
+
+// app.get('/profile', (req, res) => {
+//     res.json("profile")
+// })
 
 app.listen(PORT, () => console.log("Server running on PORT: ", PORT))

@@ -7,14 +7,22 @@ export const UserContextProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     console.log("Context data==>", user)
 
+    // useEffect(() => {
+    //     if (!user) {
+    //         axios.get('/profile').then(({userData}) => {
+    //             setUser(userData)
+
+    //         })
+    //     }
+    // }, [user])
+
     useEffect(() => {
         if (!user) {
-            axios.get('/profile').then(({ userData }) => {
-                setUser(userData)
-
-            })
+            axios.get('/profile').then(({ data: userData }) => {
+                setUser(userData);
+            });
         }
-    }, [user])
+    }, [user, setUser]);
 
     return (
         <UserContext.Provider value={{ user, setUser }} >

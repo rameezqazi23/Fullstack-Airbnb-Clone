@@ -2,9 +2,14 @@ import express from "express";
 import USER from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import cookieParser from "cookie-parser";
+
 
 
 const router = express.Router();
+const app = express();
+
+app.use(cookieParser())
 
 const salt = bcrypt.genSaltSync(10); //generate encrypted key for 10 rounds
 const secretKey = "&&^&*%R$WEFCFGR%^CD%$^#%&^TV";
@@ -34,7 +39,7 @@ router.post("/signin", async (req, res) => {
 
     try {
         const user = await USER.findOne({ email });
-        console.log("User data==>", user)
+        // console.log("User data==>", user)
 
         if (user) {
             const matchPassword = bcrypt.compareSync(password, user.password);
@@ -67,12 +72,17 @@ router.post("/signin", async (req, res) => {
 });
 
 
-router.get("/profile", (req, res) => {
-    const { token } = req.cookies;
-    if (token) {
-        jwt.verify(token, secretKey, {}, async (err, user) => {
+router.get("/profile", async (req, res) => {
+    const { userToken } = req.cookies;
+    // console.log("My token======>", userToken)
+
+    if (userToken) {
+        jwt.verify(userToken, secretKey, {}, async (err, user) => {
             if (err) throw err;
             const userDoc = await USER.findById(user._id)
+                .select("name email profileImageUrl _id")
+                .exec();
+
             console.log("user profile==>", userDoc)
             res.json(userDoc)
 

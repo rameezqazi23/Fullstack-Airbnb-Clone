@@ -9,6 +9,7 @@ import axios from 'axios';
 
 const Navbar = () => {
     const [toggle, setToggle] = useState(false);
+    const [menuToggle,setMenuToggle] = useState(false);
     const navigate = useNavigate()
 
     const handlePopUp = () => {
@@ -43,13 +44,14 @@ const Navbar = () => {
                         <FiSearch color='white' />
                     </button>
                 </div>
+                
                 <div className='flex items-center justify-between rounded-full gap-3 px-6 py-2 bg-[#f5f5f5] border border-gray-300'>
 
-                    <HiMiniBars3BottomRight className='sm:hidden flex cursor-pointer' onClick={() => setToggle(!toggle)} />
+                    <HiMiniBars3BottomRight className='sm:hidden flex cursor-pointer' onClick={() => setMenuToggle(!menuToggle)} />
 
-                    <div className={`${!toggle ? "hidden" : "flex"}
-                 p-6 text-white absolute top-20 right-0 mx-4 my-2 min-w-[180px] z-10 rounded-xl
-                 backdrop-filter backdrop-blur-lg bg-opacity-70 bg-[#f5f5f5] shadow-md`}>
+                    <div className={`${!menuToggle ? "hidden" : "flex"}
+                        p-6 text-white absolute top-20 right-0 mx-4 my-2 min-w-[180px] z-10 rounded-xl
+                        backdrop-filter backdrop-blur-lg bg-opacity-70 bg-[#f5f5f5] shadow-md`}>
 
                         <ul className='list-none flex flex-col gap-4 justify-end items-start'>
                             <li className='text-gray-500 hover:text-black text-[16px] font-medium cursor-pointer'>Anywhere</li>
@@ -59,9 +61,9 @@ const Navbar = () => {
                         </ul>
                     </div>
 
-                    {!!user &&
+                    {user &&
                         <div>
-                            <p>{user.name}</p>
+                            <p className='cursor-pointer font-semibold text-gray-500 hover:text-black'>{user.name}</p>
                         </div>
                     }
 

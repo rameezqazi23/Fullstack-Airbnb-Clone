@@ -1,11 +1,19 @@
 import { useState } from 'react'
-import { MdAddCircleOutline } from 'react-icons/md';
+import { MdAddCircleOutline, MdPets } from 'react-icons/md';
 import { Link, useParams } from 'react-router-dom';
 
 
-import { Input, FormControl, FormLabel, Select, Textarea, NumberInput, NumberInputField, Button, Flex, Box, Image } from '@chakra-ui/react';
+import { Input, FormControl, FormLabel, Select, Textarea, NumberInput, NumberInputField, Button, Flex, Box, Image, Checkbox } from '@chakra-ui/react';
+
+//react-icons
 import { IoLocationOutline } from 'react-icons/io5';
 import { BsImages, BsCardText, BsClock, BsCalendar, BsPeople } from 'react-icons/bs';
+import { AiFillCar, AiOutlineWifi } from 'react-icons/ai';
+import { PiTelevisionLight } from 'react-icons/pi';
+import { GiOpenGate } from 'react-icons/gi';
+import { FaKitchenSet } from 'react-icons/fa6';
+import { BiSolidWasher } from 'react-icons/bi';
+import { TbCalendarPlus } from 'react-icons/tb';
 
 const Places = () => {
     const { action } = useParams();
@@ -40,23 +48,26 @@ const Places = () => {
 
             }
             {action === 'new' &&
-                <div className='mt-8'>
-                    <h1 className='text-2xl font-semibold text-gray-600 text-center'>Add a new Place</h1>
-                    <Flex direction="column" align="center" p={4}>
-                        <Box maxW="md" w="full">
+                <div className='m-8'>
+                    <h1 className='text-2xl font-semibold text-gray-600 text-center my-6'>Add a new Place</h1>
+                    <Flex direction="column" align="center" p={4} className='border border-gray-300 rounded-md mx-auto w-[770px]'>
+                        <Box maxW="2xl" w="full">
                             <FormControl>
                                 <FormLabel>Title</FormLabel>
-                                <Input type="text" placeholder="Enter title" />
+                                <p className='text-[14px] text-gray-600 my-2'>Title for your place should be short and catchy as in advertisement</p>
+                                <Input type="text" placeholder="Title, for example; My Luxury Appartment" />
                             </FormControl>
 
                             <FormControl mt={4}>
                                 <FormLabel>Address</FormLabel>
+                                <p className='text-[14px] text-gray-600 my-2'>Address of your appartment</p>
                                 <Input type="text" placeholder="Enter address" />
                             </FormControl>
 
                             {/* image select */}
                             <FormControl mt={4}>
-                                <FormLabel>Image</FormLabel>
+                                <FormLabel>Photos</FormLabel>
+                                <p className='text-[14px] text-gray-600 my-2'>more = better</p>
                                 <Flex align="center">
                                     <label htmlFor="file-input" className="cursor-pointer">
                                         <Box
@@ -99,12 +110,56 @@ const Places = () => {
 
                             <FormControl mt={4}>
                                 <FormLabel>Description</FormLabel>
+                                <p className='text-[14px] text-gray-600 my-2'>Detail description of your place</p>
+
                                 <Textarea placeholder="Enter description" />
                             </FormControl>
 
                             <FormControl mt={4}>
                                 <FormLabel>Perks</FormLabel>
-                                <Input type="text" placeholder="Enter perks" />
+                                <p className='text-[14px] text-gray-600 my-2'>Select perks of your place</p>
+                                <div className='grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-6'>
+
+                                    <label className='flex border gap-4 p-4 items-center cursor-pointer rounded-md'>
+                                        <Checkbox> Wifi</Checkbox>
+                                        <AiOutlineWifi size={22} />
+                                    </label>
+
+                                    <label className='flex border gap-4 p-4 items-center cursor-pointer rounded-md'>
+                                        <Checkbox>Free Parking</Checkbox>
+                                        <AiFillCar size={22} />
+                                    </label>
+
+                                    <label className='flex border gap-4 p-4 item-center cursor-pointer rounded-md'>
+                                        <Checkbox>Pets allowed</Checkbox>
+                                        <MdPets size={22} />
+                                    </label>
+
+                                    <label className='flex border gap-4 p-4 items-center cursor-pointer rounded-md'>
+                                        <Checkbox>TV</Checkbox>
+                                        <PiTelevisionLight size={22} />
+                                    </label >
+
+                                    <label className='flex border gap-4 p-4 items-center cursor-pointer rounded-md'>
+                                        <Checkbox>Private Entrance</Checkbox>
+                                        <GiOpenGate size={22} />
+                                    </label>
+
+                                    <label className='flex border gap-4 p-4 items-center cursor-pointer rounded-md'>
+                                        <Checkbox>Kitchen</Checkbox>
+                                        <FaKitchenSet size={22} />
+                                    </label>
+
+                                    <label className='flex border gap-4 p-4 items-center cursor-pointer rounded-md'>
+                                        <Checkbox>Washer</Checkbox>
+                                        <BiSolidWasher size={22} />
+                                    </label>
+
+                                    <label className='flex border gap-4 p-4 items-center cursor-pointer rounded-md'>
+                                        <Checkbox>Long term stay allowed</Checkbox>
+                                        <TbCalendarPlus size={22} />
+                                    </label>
+                                </div>
                             </FormControl>
 
                             <FormControl mt={4}>

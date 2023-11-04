@@ -3,7 +3,7 @@ import { MdAddCircleOutline, MdPets } from 'react-icons/md';
 import { Link, useParams } from 'react-router-dom';
 
 
-import { Input, FormControl, FormLabel, Select, Textarea, NumberInput, NumberInputField, Button, Flex, Box, Image, Checkbox } from '@chakra-ui/react';
+import { Input, FormControl, FormLabel, Select, Textarea, NumberInput, NumberInputField, Button, Flex, Box, Image, Checkbox, NumberIncrementStepper, NumberInputStepper, NumberDecrementStepper } from '@chakra-ui/react';
 
 //react-icons
 import { IoLocationOutline } from 'react-icons/io5';
@@ -19,8 +19,20 @@ const Places = () => {
     const { action } = useParams();
     console.log(action)
 
-
     const [selectedFile, setSelectedFile] = useState(null);
+    const [formData, setFormData] = useState({
+        title: "",
+        address: "",
+        photos: "",
+        description: "",
+        perks: "",
+        extraInfo: "",
+        checkIn: "",
+        checkOut: "",
+        maxGuests: "",
+
+
+    })
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -38,6 +50,22 @@ const Places = () => {
         }
     };
 
+    const handleInputChange = (e) => {
+        const { name, value } = e.target
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }))
+
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("Form Data==>", formData)
+    }
+
+
+
 
     return (
         <div>
@@ -51,17 +79,27 @@ const Places = () => {
                 <div className='m-8'>
                     <h1 className='text-2xl font-semibold text-gray-600 text-center my-6'>Add a new Place</h1>
                     <Flex direction="column" align="center" p={4} className='border border-gray-300 rounded-md mx-auto w-[770px]'>
-                        <Box maxW="2xl" w="full">
+                        <form onSubmit={handleSubmit} maxW="2xl" w="full">
                             <FormControl>
                                 <FormLabel>Title</FormLabel>
                                 <p className='text-[14px] text-gray-600 my-2'>Title for your place should be short and catchy as in advertisement</p>
-                                <Input type="text" placeholder="Title, for example; My Luxury Appartment" />
+                                <Input
+                                    onChange={handleInputChange}
+                                    name="title"
+                                    value={formData.title}
+                                    type="text"
+                                    placeholder="Title, for example; My Luxury Appartment" />
                             </FormControl>
 
                             <FormControl mt={4}>
                                 <FormLabel>Address</FormLabel>
                                 <p className='text-[14px] text-gray-600 my-2'>Address of your appartment</p>
-                                <Input type="text" placeholder="Enter address" />
+                                <Input
+                                    onChange={handleInputChange}
+                                    name="address"
+                                    value={formData.address}
+                                    type="text"
+                                    placeholder="Enter address" />
                             </FormControl>
 
                             {/* image select */}
@@ -80,9 +118,9 @@ const Places = () => {
                                     </label>
                                     <Input
                                         type="file"
+                                        onChange={handleFileChange}
                                         id="file-input"
                                         display="none"
-                                        onChange={handleFileChange}
                                         accept="image/*"
                                     />
                                     <Button ml={2} colorScheme="teal" as="span">
@@ -111,8 +149,11 @@ const Places = () => {
                             <FormControl mt={4}>
                                 <FormLabel>Description</FormLabel>
                                 <p className='text-[14px] text-gray-600 my-2'>Detail description of your place</p>
-
-                                <Textarea placeholder="Enter description" />
+                                <Textarea
+                                    onChange={handleInputChange}
+                                    name="description"
+                                    value={formData.description}
+                                    placeholder="Enter description" />
                             </FormControl>
 
                             <FormControl mt={4}>
@@ -164,39 +205,64 @@ const Places = () => {
 
                             <FormControl mt={4}>
                                 <FormLabel>Extra Info</FormLabel>
-                                <Textarea placeholder="Enter extra info" />
+                                <Textarea
+                                    onChange={handleInputChange}
+                                    name="extraInfo"
+                                    value={formData.extraInfo}
+                                    placeholder="Enter extra info" />
                             </FormControl>
 
                             <FormControl mt={4}>
                                 <FormLabel>Check In</FormLabel>
+                                <p className='text-[14px] text-gray-600 my-2'>Add available check in time</p>
                                 <Flex align="center">
                                     <Box as={BsClock} fontSize="xl" color="gray.400" />
-                                    <Input type="date" ml={2} />
+                                    <Input
+                                        onChange={handleInputChange}
+                                        name='checkIn'
+                                        value={formData.checkIn}
+                                        type="date" ml={2} />
                                 </Flex>
                             </FormControl>
 
                             <FormControl mt={4}>
                                 <FormLabel>Check Out</FormLabel>
+                                <p className='text-[14px] text-gray-600 my-2'>Add available check out time</p>
+
                                 <Flex align="center">
                                     <Box as={BsCalendar} fontSize="xl" color="gray.400" />
-                                    <Input type="date" ml={2} />
+                                    <Input
+                                        onChange={handleInputChange}
+                                        name="checkOut"
+                                        value={formData.checkOut}
+                                        type="date" ml={2} />
                                 </Flex>
                             </FormControl>
 
                             <FormControl mt={4}>
                                 <FormLabel>Max Guests</FormLabel>
+                                <p className='text-[14px] text-gray-600 my-2'>Max number of guests allowed</p>
+
                                 <Flex align="center">
                                     <Box as={BsPeople} fontSize="xl" color="gray.400" />
-                                    <NumberInput ml={2} defaultValue={1} min={1}>
+                                    <NumberInput
+                                        onChange={handleInputChange}
+                                        name="maxGuests"
+                                        value={formData.maxGuests}
+                                        ml={2} defaultValue={1} min={1}>
                                         <NumberInputField />
+                                        <NumberInputStepper>
+                                            <NumberIncrementStepper />
+                                            <NumberDecrementStepper />
+                                        </NumberInputStepper>
                                     </NumberInput>
                                 </Flex>
                             </FormControl>
 
-                            <Button colorScheme="teal" mt={8} w="full">
+                            <Button type='submit' colorScheme="teal" mt={8} w="full">
                                 Submit
                             </Button>
-                        </Box>
+                        </form>
                     </Flex>
                 </div>
             }

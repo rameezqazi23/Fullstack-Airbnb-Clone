@@ -3,7 +3,10 @@ import USER from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
+import imageDownloader from "image-downloader";
+import * as path from "path";
 
+const __dirname = path.resolve()
 
 
 const router = express.Router();
@@ -94,6 +97,19 @@ router.get("/profile", async (req, res) => {
 
 router.post("/logout", (req, res) => {
     res.clearCookie("userToken").json("logged out")
+})
+
+console.log({ __dirname })
+
+router.post("/upload-by-link", async (req, res) => {
+    const { link } = req.body
+    const fileName = `image-${Date.now()}.jpg`
+    await imageDownloader.image({
+        url: link,
+        dest: __dirname + "/uploads/" + fileName
+    });
+    res.json(fileName)
+
 })
 
 

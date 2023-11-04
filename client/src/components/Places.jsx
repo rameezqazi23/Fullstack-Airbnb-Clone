@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { MdAddCircleOutline, MdPets } from 'react-icons/md';
-import { Link, useParams } from 'react-router-dom';
+import { Form, Link, useParams } from 'react-router-dom';
 
 
 import { Input, FormControl, FormLabel, Select, Textarea, NumberInput, NumberInputField, Button, Flex, Box, Image, Checkbox, NumberIncrementStepper, NumberInputStepper, NumberDecrementStepper } from '@chakra-ui/react';
@@ -14,6 +14,7 @@ import { GiOpenGate } from 'react-icons/gi';
 import { FaKitchenSet } from 'react-icons/fa6';
 import { BiSolidWasher } from 'react-icons/bi';
 import { TbCalendarPlus } from 'react-icons/tb';
+import axios from 'axios';
 
 const Places = () => {
     const { action } = useParams();
@@ -23,7 +24,6 @@ const Places = () => {
     const [formData, setFormData] = useState({
         title: "",
         address: "",
-        photos: [],
         description: "",
         perks: [],
         extraInfo: "",
@@ -33,12 +33,14 @@ const Places = () => {
 
 
     })
+    const [photoLink, setPhotoLink] = useState();
+    const [addedPhotos, setAddedPhotos] = useState([]);
+
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
             setSelectedFile(file);
-            setFormData((prev) => ({ ...prev, photos: file }))
 
             // Use FileReader to read the file and generate a preview
             const reader = new FileReader();
@@ -53,11 +55,9 @@ const Places = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
-        const { photos } = e.target.files[0]
         setFormData((prev) => ({
             ...prev,
             [name]: value,
-            [photos]: 'photos'
 
         }))
 
@@ -66,6 +66,13 @@ const Places = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Form Data==>", formData)
+    }
+
+    const addPhotoByLink = async (e) => {
+        e.preventDefault();
+        const { data: filename } = await axios.post('/upload-by-link', { link: photoLink })
+        setAddedPhotos((prev) => ([...prev, filename]))
+        setPhotoLink('')
     }
 
 
@@ -83,7 +90,7 @@ const Places = () => {
                 <div className='m-8'>
                     <h1 className='text-2xl font-semibold text-gray-600 text-center my-6'>Add a new Place</h1>
                     <Flex direction="column" align="center" p={4} className='border border-gray-300 rounded-md mx-auto w-[770px]'>
-                        <form onSubmit={handleSubmit} maxW="2xl" w="full">
+                        <form onSubmit={handleSubmit}>
                             <FormControl>
                                 <FormLabel>Title</FormLabel>
                                 <p className='text-[14px] text-gray-600 my-2'>Title for your place should be short and catchy as in advertisement</p>
@@ -106,8 +113,31 @@ const Places = () => {
                                     placeholder="Enter address" />
                             </FormControl>
 
-                            {/* image select */}
                             <FormControl mt={4}>
+                                <FormLabel>Photos</FormLabel>
+                                <Flex>
+                                    <Input
+                                        onChange={(e) => setPhotoLink(e.target.value)}
+                                        name="photoLink"
+                                        value={photoLink}
+                                        type="text"
+                                        placeholder="paste your link here" />
+                                    <Button onClick={addPhotoByLink} colorScheme="teal" ml={6}>
+                                        Add
+                                    </Button>
+                                </Flex>
+
+                            </FormControl>
+                            <Box>
+                                {addedPhotos.length > 0 && addedPhotos.map((key, image) => (
+                                    <div key={image}>
+                                        {image}
+                                    </div>
+                                ))}
+                            </Box>
+
+                            {/* image select */}
+                            {/* <FormControl mt={4}>
                                 <FormLabel>Photos</FormLabel>
                                 <p className='text-[14px] text-gray-600 my-2'>more = better</p>
                                 <Flex align="center">
@@ -134,13 +164,12 @@ const Places = () => {
                                         Choose File
                                     </Button>
                                 </Flex>
-                                {/* Display image preview */}
                                 {selectedFile && (
                                     <Box mt={2}>
                                         <Image src={URL.createObjectURL(selectedFile)} alt="Preview" boxSize="100px" />
                                     </Box>
                                 )}
-                            </FormControl>
+                            </FormControl> */}
 
 
 

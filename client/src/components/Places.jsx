@@ -23,9 +23,9 @@ const Places = () => {
     const [formData, setFormData] = useState({
         title: "",
         address: "",
-        photos: "",
+        photos: [],
         description: "",
-        perks: "",
+        perks: [],
         extraInfo: "",
         checkIn: "",
         checkOut: "",
@@ -38,6 +38,7 @@ const Places = () => {
         const file = e.target.files[0];
         if (file) {
             setSelectedFile(file);
+            setFormData((prev) => ({ ...prev, photos: file }))
 
             // Use FileReader to read the file and generate a preview
             const reader = new FileReader();
@@ -52,9 +53,12 @@ const Places = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
+        const { photos } = e.target.files[0]
         setFormData((prev) => ({
             ...prev,
             [name]: value,
+            [photos]: 'photos'
+
         }))
 
     }
@@ -118,7 +122,10 @@ const Places = () => {
                                     </label>
                                     <Input
                                         type="file"
-                                        onChange={handleFileChange}
+                                        //onChange={handleFileChange}
+                                        onChange={() => { handleFileChange(), handleInputChange() }}
+                                        name='photos'
+                                        value={formData.photos}
                                         id="file-input"
                                         display="none"
                                         accept="image/*"
@@ -245,17 +252,24 @@ const Places = () => {
 
                                 <Flex align="center">
                                     <Box as={BsPeople} fontSize="xl" color="gray.400" />
-                                    <NumberInput
+                                    <Input
                                         onChange={handleInputChange}
                                         name="maxGuests"
                                         value={formData.maxGuests}
-                                        ml={2} defaultValue={1} min={1}>
+                                        type="text" ml={2} />
+
+                                    {/* <NumberInput
+                                        onChange={handleInputChange}
+                                        name="maxGuests"
+                                        value={formData.maxGuests}
+                                        ml={2} defaultValue={1} min={1}
+                                        >
                                         <NumberInputField />
                                         <NumberInputStepper>
                                             <NumberIncrementStepper />
                                             <NumberDecrementStepper />
                                         </NumberInputStepper>
-                                    </NumberInput>
+                                    </NumberInput> */}
                                 </Flex>
                             </FormControl>
 

@@ -6,13 +6,12 @@ import cookieParser from "cookie-parser";
 import imageDownloader from "image-downloader";
 import * as path from "path";
 
-const __dirname = path.resolve()
-
-
+//Configuration
+const __dirname = path.resolve();
 const router = express.Router();
 const app = express();
-
 app.use(cookieParser())
+
 
 const salt = bcrypt.genSaltSync(10); //generate encrypted key for 10 rounds
 const secretKey = "&&^&*%R$WEFCFGR%^CD%$^#%&^TV";

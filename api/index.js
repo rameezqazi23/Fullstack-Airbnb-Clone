@@ -13,7 +13,7 @@ import userRoutes from "./routes/userRoutes.js";
 const app = express();
 dotenv.config();
 const PORT = 8000;
-
+const __dirname = path.resolve()
 
 //MongoDB Connection
 connectToMongoDb(process.env.MONGODB_URL)
@@ -29,6 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 // app.use(checkAuthenticationCookie("userToken"))
 app.use(express.static(path.resolve('./public')))
+app.use('/uploads', express.static(__dirname + '/uploads'))
 
 
 //Home route

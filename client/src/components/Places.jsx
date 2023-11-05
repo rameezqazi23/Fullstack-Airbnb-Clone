@@ -7,12 +7,12 @@ import { Input, FormControl, FormLabel, Select, Textarea, NumberInput, NumberInp
 
 //react-icons
 import { IoLocationOutline } from 'react-icons/io5';
-import { BsImages, BsCardText, BsClock, BsCalendar, BsPeople } from 'react-icons/bs';
+import { BsImages, BsCardText, BsClock, BsCalendar, BsPeople, BsCloudUpload } from 'react-icons/bs';
 import { AiFillCar, AiOutlineWifi } from 'react-icons/ai';
 import { PiTelevisionLight } from 'react-icons/pi';
 import { GiOpenGate } from 'react-icons/gi';
 import { FaKitchenSet } from 'react-icons/fa6';
-import { BiSolidWasher } from 'react-icons/bi';
+import { BiSolidWasher, BiCloudUpload } from 'react-icons/bi';
 import { TbCalendarPlus } from 'react-icons/tb';
 import axios from 'axios';
 
@@ -36,23 +36,7 @@ const Places = () => {
     const [photoLink, setPhotoLink] = useState();
     const [addedPhotos, setAddedPhotos] = useState([]);
 
-
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setSelectedFile(file);
-
-            // Use FileReader to read the file and generate a preview
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                // event.target.result contains the data URL for the image
-                const imageDataUrl = event.target.result;
-                // Do something with the imageDataUrl (e.g., set it in state to display the preview)
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
+    //Form data change handler
     const handleInputChange = (e) => {
         const { name, value } = e.target
         setFormData((prev) => ({
@@ -63,16 +47,25 @@ const Places = () => {
 
     }
 
+    //Form data submit handler
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Form Data==>", formData)
     }
 
+    //Add images by link handler
     const addPhotoByLink = async (e) => {
         e.preventDefault();
         const { data: filename } = await axios.post('/upload-by-link', { link: photoLink })
         setAddedPhotos((prev) => ([...prev, filename]))
         setPhotoLink('')
+    }
+
+    //Add images by button handler
+    const uploadPhotoByButton = (e) => {
+        e.preventDefault();
+        const files = e.target.files
+        console.log("Selected file==>", files)
     }
 
 
@@ -128,59 +121,23 @@ const Places = () => {
                                 </Flex>
 
                             </FormControl>
-                            <Box>
-                                {addedPhotos.length > 0 && addedPhotos.map((key, image) => (
+
+                            <Box mt={4} className='grid grid-cols-3 gap-2 md:grid-cols-4 lg:grid-cols-6'>
+                                {addedPhotos.length > 0 && addedPhotos.map((image) => (
                                     <div key={image}>
-                                        {image}
+                                        <img src={`http://localhost:8000/uploads/${image}`} alt="image"
+                                            className='rounded-2xl'
+                                        />
+
                                     </div>
                                 ))}
+
+                                <label className='flex gap-1 justify-center items-center border border-gray-300 bg-transparent rounded-2xl cursor-pointer'>
+                                    <input type="file" className='hidden' onChange={uploadPhotoByButton} />
+                                    <BiCloudUpload size={25} /> Upload
+                                </label>
                             </Box>
 
-                            {/* image select */}
-                            {/* <FormControl mt={4}>
-                                <FormLabel>Photos</FormLabel>
-                                <p className='text-[14px] text-gray-600 my-2'>more = better</p>
-                                <Flex align="center">
-                                    <label htmlFor="file-input" className="cursor-pointer">
-                                        <Box
-                                            as={BsImages}
-                                            fontSize="xl"
-                                            color="gray.400"
-                                            cursor="pointer"
-                                            _hover={{ color: 'teal.500' }}
-                                        />
-                                    </label>
-                                    <Input
-                                        type="file"
-                                        //onChange={handleFileChange}
-                                        onChange={() => { handleFileChange(), handleInputChange() }}
-                                        name='photos'
-                                        value={formData.photos}
-                                        id="file-input"
-                                        display="none"
-                                        accept="image/*"
-                                    />
-                                    <Button ml={2} colorScheme="teal" as="span">
-                                        Choose File
-                                    </Button>
-                                </Flex>
-                                {selectedFile && (
-                                    <Box mt={2}>
-                                        <Image src={URL.createObjectURL(selectedFile)} alt="Preview" boxSize="100px" />
-                                    </Box>
-                                )}
-                            </FormControl> */}
-
-
-
-
-                            {/* <FormControl mt={4}>
-                                <FormLabel>Image</FormLabel>
-                                <Flex align="center">
-                                    <Box as={BsImages} fontSize="xl" color="gray.400" />
-                                    <Input type="file" ml={2} />
-                                </Flex>
-                            </FormControl> */}
 
                             <FormControl mt={4}>
                                 <FormLabel>Description</FormLabel>

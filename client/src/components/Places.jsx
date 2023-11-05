@@ -3,7 +3,23 @@ import { MdAddCircleOutline, MdPets } from 'react-icons/md';
 import { Form, Link, useParams } from 'react-router-dom';
 
 
-import { Input, FormControl, FormLabel, Select, Textarea, NumberInput, NumberInputField, Button, Flex, Box, Image, Checkbox, NumberIncrementStepper, NumberInputStepper, NumberDecrementStepper } from '@chakra-ui/react';
+import {
+    Input,
+    FormControl,
+    FormLabel,
+    Select,
+    Textarea,
+    NumberInput,
+    NumberInputField,
+    Button,
+    Flex,
+    Box,
+    Image,
+    Checkbox,
+    NumberIncrementStepper,
+    NumberInputStepper,
+    NumberDecrementStepper
+} from '@chakra-ui/react';
 
 //react-icons
 import { IoLocationOutline } from 'react-icons/io5';
@@ -20,7 +36,6 @@ const Places = () => {
     const { action } = useParams();
     console.log(action)
 
-    const [selectedFile, setSelectedFile] = useState(null);
     const [formData, setFormData] = useState({
         title: "",
         address: "",
@@ -122,7 +137,7 @@ const Places = () => {
 
                             </FormControl>
 
-                            <Box mt={4} className='grid grid-cols-3 gap-2 md:grid-cols-4 lg:grid-cols-6'>
+                            <FormControl mt={4} className='grid grid-cols-3 gap-2 md:grid-cols-4 lg:grid-cols-6'>
                                 {addedPhotos.length > 0 && addedPhotos.map((image) => (
                                     <div key={image}>
                                         <img src={`http://localhost:8000/uploads/${image}`} alt="image"
@@ -136,7 +151,9 @@ const Places = () => {
                                     <input type="file" className='hidden' onChange={uploadPhotoByButton} />
                                     <BiCloudUpload size={25} /> Upload
                                 </label>
-                            </Box>
+                            </FormControl>
+                            
+
 
 
                             <FormControl mt={4}>

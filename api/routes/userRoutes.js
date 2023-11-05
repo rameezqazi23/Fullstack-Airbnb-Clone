@@ -3,18 +3,19 @@ import USER from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
-import imageDownloader from "image-downloader";
-import * as path from "path";
+import * as dotenv from "dotenv";
+
+
 
 //Configuration
-const __dirname = path.resolve();
 const router = express.Router();
 const app = express();
+dotenv.config();
 app.use(cookieParser())
 
 
 const salt = bcrypt.genSaltSync(10); //generate encrypted key for 10 rounds
-const secretKey = "&&^&*%R$WEFCFGR%^CD%$^#%&^TV";
+const secretKey = process.env.JWT_SECRET_KEY;
 
 router.post("/signup", async (req, res) => {
     const { name, email, password } = req.body
@@ -97,20 +98,6 @@ router.get("/profile", async (req, res) => {
 router.post("/logout", (req, res) => {
     res.clearCookie("userToken").json("logged out")
 })
-
-console.log({ __dirname })
-
-router.post("/upload-by-link", async (req, res) => {
-    const { link } = req.body
-    const fileName = `image-${Date.now()}.jpg`
-    await imageDownloader.image({
-        url: link,
-        dest: __dirname + "/uploads/" + fileName
-    });
-    res.json(fileName)
-
-})
-
 
 
 export default router;

@@ -7,6 +7,7 @@ import * as path from "path";
 import { connectToMongoDb } from "./mongodb/connect.js";
 // import { checkAuthenticationCookie } from "./middlewares/auth.js";
 import userRoutes from "./routes/userRoutes.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
 
 
 //configurations
@@ -27,7 +28,6 @@ app.use(cookieParser());
 app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-// app.use(checkAuthenticationCookie("userToken"))
 app.use(express.static(path.resolve('./public')))
 app.use('/uploads', express.static(__dirname + '/uploads'))
 
@@ -39,6 +39,7 @@ app.get('/', (req, res) => {
 
 //external routes
 app.use('/', userRoutes)
+app.use('/', uploadRoutes)
 
 // app.get('/profile', (req, res) => {
 //     res.json("profile")

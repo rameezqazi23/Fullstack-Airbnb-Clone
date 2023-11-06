@@ -36,9 +36,13 @@ const Places = () => {
     const { action } = useParams();
     console.log(action)
 
+    const [photoLink, setPhotoLink] = useState("");
+    const [addedPhotos, setAddedPhotos] = useState([]);
+
     const [formData, setFormData] = useState({
         title: "",
         address: "",
+        photos: [],
         description: "",
         perks: [],
         extraInfo: "",
@@ -48,12 +52,11 @@ const Places = () => {
 
 
     })
-    const [photoLink, setPhotoLink] = useState();
-    const [addedPhotos, setAddedPhotos] = useState([]);
 
     //Form data change handler
     const handleInputChange = (e) => {
         const { name, value } = e.target
+
         setFormData((prev) => ({
             ...prev,
             [name]: value,
@@ -73,6 +76,7 @@ const Places = () => {
         e.preventDefault();
         const { data: filename } = await axios.post('/upload-by-link', { link: photoLink })
         setAddedPhotos((prev) => ([...prev, filename]))
+        setFormData((prev) => ({ ...prev, photos: [...addedPhotos] }))
         setPhotoLink('')
     }
 
@@ -82,6 +86,7 @@ const Places = () => {
         const files = e.target.files
         console.log("Selected file==>", files)
     }
+
 
 
 
@@ -107,6 +112,7 @@ const Places = () => {
                                     name="title"
                                     value={formData.title}
                                     type="text"
+                                    // required
                                     placeholder="Title, for example; My Luxury Appartment" />
                             </FormControl>
 
@@ -129,6 +135,7 @@ const Places = () => {
                                         name="photoLink"
                                         value={photoLink}
                                         type="text"
+                                        
                                         placeholder="paste your link here" />
                                     <Button onClick={addPhotoByLink} colorScheme="teal" ml={6}>
                                         Add
@@ -152,7 +159,7 @@ const Places = () => {
                                     <BiCloudUpload size={25} /> Upload
                                 </label>
                             </FormControl>
-                            
+
 
 
 

@@ -31,6 +31,7 @@ import { FaKitchenSet } from 'react-icons/fa6';
 import { BiSolidWasher, BiCloudUpload } from 'react-icons/bi';
 import { TbCalendarPlus } from 'react-icons/tb';
 import axios from 'axios';
+import { useEffect } from 'react';
 
 const Places = () => {
     const { action } = useParams();
@@ -76,7 +77,6 @@ const Places = () => {
         e.preventDefault();
         const { data: filename } = await axios.post('/upload-by-link', { link: photoLink })
         setAddedPhotos((prev) => ([...prev, filename]))
-        setFormData((prev) => ({ ...prev, photos: [...addedPhotos] }))
         setPhotoLink('')
     }
 
@@ -87,6 +87,14 @@ const Places = () => {
         console.log("Selected file==>", files)
     }
 
+    //State synchronization, manage formsData==>photos state
+    useEffect(() => {
+        setFormData((prev) => ({
+            ...prev,
+            photos: addedPhotos
+        }))
+
+    }, [addedPhotos])
 
 
 
@@ -135,7 +143,7 @@ const Places = () => {
                                         name="photoLink"
                                         value={photoLink}
                                         type="text"
-                                        
+
                                         placeholder="paste your link here" />
                                     <Button onClick={addPhotoByLink} colorScheme="teal" ml={6}>
                                         Add

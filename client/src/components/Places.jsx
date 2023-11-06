@@ -85,6 +85,21 @@ const Places = () => {
         e.preventDefault();
         const files = e.target.files
         console.log("Selected file==>", files)
+
+        const data = new FormData();
+
+        for (let i = 0; i < files.length; i++) {
+            data.append('photos', files[i]);
+        }
+
+        axios.post('/upload-by-button', data, {
+            headers: { 'Content-type': 'multipart/form-data' }
+        }).then((response) => {
+            const { data: filename } = response;
+            setAddedPhotos((prev) => ([...prev, filename]))
+        })
+
+
     }
 
     //State synchronization, manage formsData==>photos state
@@ -163,7 +178,7 @@ const Places = () => {
                                 ))}
 
                                 <label className='flex gap-1 justify-center items-center border border-gray-300 bg-transparent rounded-2xl cursor-pointer'>
-                                    <input type="file" className='hidden' onChange={uploadPhotoByButton} />
+                                    <input multiple type="file" className='hidden' onChange={uploadPhotoByButton} />
                                     <BiCloudUpload size={25} /> Upload
                                 </label>
                             </FormControl>

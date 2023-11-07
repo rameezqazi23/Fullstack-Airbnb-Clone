@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { MdAddCircleOutline, MdPets } from 'react-icons/md';
-import { Form, Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 
 import {
@@ -14,7 +14,6 @@ import {
     Button,
     Flex,
     Box,
-    Image,
     Checkbox,
     NumberIncrementStepper,
     NumberInputStepper,
@@ -40,7 +39,6 @@ const Places = () => {
     const [photoLink, setPhotoLink] = useState("");
     const [addedPhotos, setAddedPhotos] = useState([]);
     const [addPerks, setAddPerks] = useState([]);
-
     const [formData, setFormData] = useState({
         title: "",
         address: "",
@@ -51,9 +49,9 @@ const Places = () => {
         checkIn: "",
         checkOut: "",
         maxGuests: "",
-
-
     })
+
+    const navigate = useNavigate();
 
     //Form data change handler
     const handleInputChange = (e) => {
@@ -68,14 +66,18 @@ const Places = () => {
     }
 
     //Form data submit handler
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Form Data==>", formData)
+        await axios.post('/add-new-places', { formData })
+        navigate('/account/places')
     }
 
     //Add images by link handler
     const addPhotoByLink = async (e) => {
         e.preventDefault();
+        if (photoLink == '') {
+            return alert("Add valid image url!")
+        }
         const { data: filename } = await axios.post('/upload-by-link', { link: photoLink })
         setAddedPhotos((prev) => ([...prev, filename]))
         setPhotoLink('')
@@ -85,7 +87,7 @@ const Places = () => {
     const uploadPhotoByButton = (e) => {
         e.preventDefault();
         const files = e.target.files
-        console.log("Selected file==>", files)
+        // console.log("Selected file==>", files)
 
         const data = new FormData();
 
@@ -131,7 +133,8 @@ const Places = () => {
         <div>
             {action !== 'new' &&
                 <div className='flex justify-center items-center mx-auto max-w-[350px]'>
-                    <Link to='/account/places/new' className='flex justify-center py-2 px-4 gap-2 text-white text-[16px] font-medium rounded-full mt-8 items-center bg-primary'> <MdAddCircleOutline /> Add new place</Link>
+                    <Link to='/account/places/new' className='flex justify-center py-2 px-4 gap-2 text-white text-[16px] font-medium rounded-full mt-8 items-center bg-primary'>
+                        <MdAddCircleOutline /> Add new place</Link>
                 </div>
 
             }
@@ -148,7 +151,7 @@ const Places = () => {
                                     name="title"
                                     value={formData.title}
                                     type="text"
-                                    // required
+                                    required
                                     placeholder="Title, for example; My Luxury Appartment" />
                             </FormControl>
 
@@ -160,6 +163,7 @@ const Places = () => {
                                     name="address"
                                     value={formData.address}
                                     type="text"
+                                    required
                                     placeholder="Enter address" />
                             </FormControl>
 
@@ -206,6 +210,7 @@ const Places = () => {
                                     onChange={handleInputChange}
                                     name="description"
                                     value={formData.description}
+                                    required
                                     placeholder="Enter description" />
                             </FormControl>
 
@@ -262,6 +267,7 @@ const Places = () => {
                                     onChange={handleInputChange}
                                     name="extraInfo"
                                     value={formData.extraInfo}
+                                    required
                                     placeholder="Enter extra info" />
                             </FormControl>
 
@@ -274,6 +280,7 @@ const Places = () => {
                                         onChange={handleInputChange}
                                         name='checkIn'
                                         value={formData.checkIn}
+                                        required
                                         type="date" ml={2} />
                                 </Flex>
                             </FormControl>
@@ -288,6 +295,7 @@ const Places = () => {
                                         onChange={handleInputChange}
                                         name="checkOut"
                                         value={formData.checkOut}
+                                        required
                                         type="date" ml={2} />
                                 </Flex>
                             </FormControl>
@@ -302,6 +310,7 @@ const Places = () => {
                                         onChange={handleInputChange}
                                         name="maxGuests"
                                         value={formData.maxGuests}
+                                        required
                                         type="text" ml={2} />
 
                                     {/* <NumberInput

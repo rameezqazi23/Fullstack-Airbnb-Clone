@@ -39,6 +39,7 @@ const Places = () => {
 
     const [photoLink, setPhotoLink] = useState("");
     const [addedPhotos, setAddedPhotos] = useState([]);
+    const [addPerks, setAddPerks] = useState([]);
 
     const [formData, setFormData] = useState({
         title: "",
@@ -102,15 +103,27 @@ const Places = () => {
 
     }
 
+    //Handle checkbox
+    const handleCheckbox = (e) => {
+        const { checked, name } = e.target
+        if (checked) {
+            setAddPerks((prev) => ([...prev, name]))
+        } else {
+            setAddPerks((prev) => ([...prev.filter(item => item !== name)]))
+        }
+
+    }
+
     //State synchronization, manage formsData==>photos state
     useEffect(() => {
         setFormData((prev) => ({
             ...prev,
-            photos: addedPhotos
+            photos: addedPhotos,
+            perks: addPerks,
         }))
 
-    }, [addedPhotos])
 
+    }, [addedPhotos, addPerks])
 
 
 
@@ -169,9 +182,9 @@ const Places = () => {
 
                             <FormControl mt={4} className='grid grid-cols-3 gap-2 md:grid-cols-4 lg:grid-cols-6'>
                                 {addedPhotos.length > 0 && addedPhotos.map((image) => (
-                                    <div key={image}>
+                                    <div className='flex h-32' key={image}>
                                         <img src={`http://localhost:8000/uploads/${image}`} alt="image"
-                                            className='rounded-2xl'
+                                            className='rounded-2xl w-full object-cover'
                                         />
 
                                     </div>
@@ -202,42 +215,42 @@ const Places = () => {
                                 <div className='grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-6'>
 
                                     <label className='flex border gap-4 p-4 items-center cursor-pointer rounded-md'>
-                                        <Checkbox> Wifi</Checkbox>
+                                        <Checkbox name='wifi' onChange={handleCheckbox}> Wifi</Checkbox>
                                         <AiOutlineWifi size={22} />
                                     </label>
 
                                     <label className='flex border gap-4 p-4 items-center cursor-pointer rounded-md'>
-                                        <Checkbox>Free Parking</Checkbox>
+                                        <Checkbox name='freeParking' onChange={handleCheckbox}>Free Parking</Checkbox>
                                         <AiFillCar size={22} />
                                     </label>
 
                                     <label className='flex border gap-4 p-4 item-center cursor-pointer rounded-md'>
-                                        <Checkbox>Pets allowed</Checkbox>
+                                        <Checkbox name='petsAllowed' onChange={handleCheckbox}>Pets allowed</Checkbox>
                                         <MdPets size={22} />
                                     </label>
 
                                     <label className='flex border gap-4 p-4 items-center cursor-pointer rounded-md'>
-                                        <Checkbox>TV</Checkbox>
+                                        <Checkbox name='tv' onChange={handleCheckbox}>TV</Checkbox>
                                         <PiTelevisionLight size={22} />
                                     </label >
 
                                     <label className='flex border gap-4 p-4 items-center cursor-pointer rounded-md'>
-                                        <Checkbox>Private Entrance</Checkbox>
+                                        <Checkbox name='privateEntrance' onChange={handleCheckbox}>Private Entrance</Checkbox>
                                         <GiOpenGate size={22} />
                                     </label>
 
                                     <label className='flex border gap-4 p-4 items-center cursor-pointer rounded-md'>
-                                        <Checkbox>Kitchen</Checkbox>
+                                        <Checkbox name='kitchen' onChange={handleCheckbox}>Kitchen</Checkbox>
                                         <FaKitchenSet size={22} />
                                     </label>
 
                                     <label className='flex border gap-4 p-4 items-center cursor-pointer rounded-md'>
-                                        <Checkbox>Washer</Checkbox>
+                                        <Checkbox name='washer' onChange={handleCheckbox}>Washer</Checkbox>
                                         <BiSolidWasher size={22} />
                                     </label>
 
                                     <label className='flex border gap-4 p-4 items-center cursor-pointer rounded-md'>
-                                        <Checkbox>Long term stay allowed</Checkbox>
+                                        <Checkbox name='longTermStayAllowed' onChange={handleCheckbox}>Long term stay allowed</Checkbox>
                                         <TbCalendarPlus size={22} />
                                     </label>
                                 </div>

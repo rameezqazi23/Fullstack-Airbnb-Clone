@@ -96,7 +96,7 @@ const Places = () => {
             headers: { 'Content-type': 'multipart/form-data' }
         }).then((response) => {
             const { data: filename } = response;
-            setAddedPhotos((prev) => ([...prev, filename]))
+            setAddedPhotos((prev) => ([...prev, ...filename]))
         })
 
 

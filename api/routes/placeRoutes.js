@@ -1,9 +1,36 @@
 import express from "express";
-const router = express();
+import PLACE from "../models/place.js";
+import jwt  from "jsonwebtoken";
+import * as dotenv from "dotenv";
 
-router.post('/add-new-places', (req, res) => {
+const router = express();
+dotenv.config();
+const secretKey = process.env.JWT_SECRET_KEY;
+
+router.post('/places', (req, res) => {
     const { formData } = req.body;
-    res.json(formData)
+    const { userToken } = req.cookies;
+
+    jwt.verify(userToken, secretKey, {}, async (err, userData) => {
+        if (err) throw err;
+
+        const placeDoc = await PLACE.create({
+            title: formData.title,
+            address: formData.address,
+            photos: formData.photos,
+            description: formData.description,
+            perks: formData.perks,
+            extraInfo: formData.extraInfo,
+            checkIn: formData.checkIn,
+            checkOut: formData.checkOut,
+            maxGuests: formData.maxGuests,
+            owner: userData._id,
+        })
+
+        res.json(placeDoc)
+
+    })
+
 })
 
 export default router;

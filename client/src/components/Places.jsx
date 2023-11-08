@@ -68,7 +68,7 @@ const Places = () => {
     //Form data submit handler
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await axios.post('/add-new-places', { formData })
+        await axios.post('/places', { formData })
         navigate('/account/places')
     }
 

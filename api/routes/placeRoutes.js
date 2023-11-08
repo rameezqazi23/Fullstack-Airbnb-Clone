@@ -1,6 +1,6 @@
 import express from "express";
 import PLACE from "../models/place.js";
-import jwt  from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
 
 const router = express();
@@ -31,6 +31,15 @@ router.post('/places', (req, res) => {
 
     })
 
+})
+
+router.get('/places', (req, res) => {
+    const { userToken } = req.cookies;
+    jwt.verify(userToken, secretKey, {}, async (err, userData) => {
+        const { _id } = userData;
+        const placeDoc = await PLACE.find({ owner: _id })
+        res.json(placeDoc)
+    })
 })
 
 export default router;

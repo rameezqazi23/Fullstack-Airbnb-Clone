@@ -21,10 +21,12 @@ import { AiFillCar, AiOutlineWifi } from 'react-icons/ai';
 import { PiTelevisionLight } from 'react-icons/pi';
 import { GiOpenGate } from 'react-icons/gi';
 import { FaKitchenSet } from 'react-icons/fa6';
-import { BiSolidWasher, BiCloudUpload } from 'react-icons/bi';
+import { BiSolidWasher, BiCloudUpload, BiSolidTrashAlt } from 'react-icons/bi';
+import { GoTrash } from 'react-icons/go'
 import { TbCalendarPlus } from 'react-icons/tb';
 import axios from 'axios';
 import { useEffect } from 'react';
+import { FaTrashRestore } from 'react-icons/fa';
 const PlaceForm = () => {
 
 
@@ -119,6 +121,15 @@ const PlaceForm = () => {
 
     }, [addedPhotos, addPerks])
 
+    const deleteImage = () => {
+        console.log("Running....", formData.photos)
+        setFormData((prev) => ({
+            ...prev,
+            photos: addedPhotos.pop(),
+        }))
+
+    }
+
 
 
     return (
@@ -169,10 +180,13 @@ const PlaceForm = () => {
 
                     <FormControl mt={4} className='grid grid-cols-3 gap-2 md:grid-cols-4 lg:grid-cols-6'>
                         {addedPhotos.length > 0 && addedPhotos.map((image) => (
-                            <div className='flex h-32' key={image}>
+                            <div className='flex h-32 relative' key={image}>
                                 <img src={`http://localhost:8000/uploads/${image}`} alt="image"
                                     className='rounded-2xl w-full object-cover'
                                 />
+                                <div onClick={deleteImage} className='absolute cursor-pointer bottom-2 right-2 bg-black bg-opacity-80 p-2 rounded-full'>
+                                    <GoTrash color='white' />
+                                </div>
 
                             </div>
                         ))}

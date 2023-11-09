@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react'
 import { MdAddCircleOutline } from 'react-icons/md';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import PlaceForm from './PlaceForm';
-import axios from 'axios';
 import ListingCard from './ListingCard';
 
 

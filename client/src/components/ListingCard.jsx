@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useContext } from 'react'
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import axios from 'axios';
+import { PlaceContext } from '../context/placeContext';
 
 const ListingCard = () => {
     const settings = {
@@ -13,16 +13,8 @@ const ListingCard = () => {
         dots: true,
     };
 
-    const [places, setPlaces] = useState([]);
-
-    useEffect(() => {
-        axios.get('/places')
-            .then(({ data }) => {
-                setPlaces(data)
-                console.log("Places data===>,", data)
-            })
-    }, [])
-
+    const { places } = useContext(PlaceContext)
+    
     return (
         <div className='flex flex-wrap mx-4 gap-8 mt-8'>
             {places.length > 0 && places.map((place) => (

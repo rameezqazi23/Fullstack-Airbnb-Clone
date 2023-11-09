@@ -8,14 +8,7 @@ export const UserContextProvider = ({ children }) => {
     const [isUserAvailable, setIsUserAvailable] = useState(null);
     console.log("Context data==>", user)
 
-    // useEffect(() => {
-    //     if (!user) {
-    //         axios.get('/profile').then(({userData}) => {
-    //             setUser(userData)
-
-    //         })
-    //     }
-    // }, [user])
+    
 
     useEffect(() => {
         if (!user) {

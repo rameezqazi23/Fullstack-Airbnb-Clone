@@ -20,7 +20,7 @@ const ListingCard = () => {
     return (
         <div className='flex flex-wrap mx-4 gap-8 mt-8'>
             {places.length > 0 && places.map((place) => (
-                <Link to={`/account/places/placepage/${place._id}`} key={place._id} className="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 max-w-md mx-auto overflow-hidden">
+                <Link to={`/account/places/place-page/${place._id}`} key={place._id} className="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 max-w-md mx-auto overflow-hidden">
                     {/* Use the sliderSettings here */}
                     <Slider {...settings}>
                         {place.photos.map((image, index) => (

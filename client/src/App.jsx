@@ -27,7 +27,7 @@ function App() {
                 <Route path="/signin" element={<SignIn />} />
                 <Route path="/account/:subpage?" element={<Account />} />
                 <Route path="/account/:subpage/:action" element={<Account />} />
-                <Route path="/account/places/placepage/:id" element={<PlacePage />} />
+                <Route path="/account/places/place-page/:id" element={<PlacePage />} />
                 <Route path="/test" element={<Test />} />
               </Routes>
             </PlaceContextProvider>

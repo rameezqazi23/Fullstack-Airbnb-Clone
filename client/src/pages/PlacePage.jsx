@@ -10,7 +10,7 @@ const PlacePage = () => {
     return (
         <div>
             This is full Place Page <br />
-            {id === result && result}
+            {id}
 
         </div>
     )

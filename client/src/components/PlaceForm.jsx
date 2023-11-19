@@ -121,6 +121,7 @@ const PlaceForm = () => {
 
     }, [addedPhotos, addPerks])
 
+    //delete selected image
     const deleteImage = () => {
         console.log("Running....", formData.photos)
         setFormData((prev) => ({

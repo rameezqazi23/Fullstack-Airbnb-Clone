@@ -25,6 +25,7 @@ const PlacePage = () => {
             <div>
                 <h1>{place.title}</h1>
                 <p>{place.description}</p>
+                <p>{place._id}</p>
             </div>
 
         </div>

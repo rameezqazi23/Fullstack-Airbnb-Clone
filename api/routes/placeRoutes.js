@@ -42,4 +42,9 @@ router.get('/places', (req, res) => {
     })
 })
 
+router.get('/place-page/:id', async (req, res) => {
+    const place = await PLACE.findById(req.params.id)
+    res.json(place)
+})
+
 export default router;

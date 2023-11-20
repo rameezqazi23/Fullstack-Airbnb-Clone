@@ -5,7 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { PlaceContext } from '../context/placeContext';
 import { Link } from 'react-router-dom';
 
-const ListingCard = ({myPlaces}) => {
+const ListingCard = ({ myPlaces }) => {
     const settings = {
         infinite: true,
         slidesToShow: 1,
@@ -14,8 +14,12 @@ const ListingCard = ({myPlaces}) => {
         dots: true,
     };
 
-    // const { places } = useContext(PlaceContext)
-    console.log("Places Data==>", myPlaces)
+    const formatDateString = (dateString) => {
+        const options = { month: 'short', day: 'numeric' };
+        const date = new Date(dateString)
+        return date.toLocaleDateString('en-US', options)
+    }
+
 
     return (
         <div className='flex flex-wrap mx-4 gap-8 mt-8'>
@@ -36,9 +40,9 @@ const ListingCard = ({myPlaces}) => {
 
                     <div className="mt-6">
                         <h3 className="text-md text-black font-semibold">{place.title}</h3>
-                        <p className="text-gray-500">{place.description}</p>
-                        <p className="text-gray-500 mb-2">Dec 2 - 7</p>
-                        <p className="font-semibold text-black">$204 <span className='text-gray-500 font-normal'>per night</span></p>
+                        <p className="text-gray-500 truncate">{place.description}</p>
+                        <p className="text-gray-500 mb-2">{formatDateString(place.checkIn)} - {formatDateString(place.checkOut)}</p>
+                        <p className="font-semibold text-black">${place.price} <span className='text-gray-500 font-normal'>per night</span></p>
                     </div>
                 </Link>
             ))}

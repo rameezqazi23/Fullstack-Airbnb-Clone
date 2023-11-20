@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { MdAddCircleOutline, MdPets } from 'react-icons/md';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { MdPets } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 
 import {
@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react';
 
 //react-icons
-import { BsClock, BsCalendar, BsPeople } from 'react-icons/bs';
+import { BsClock, BsCalendar, BsPeople, BsCurrencyDollar } from 'react-icons/bs';
 import { AiFillCar, AiOutlineWifi } from 'react-icons/ai';
 import { PiTelevisionLight } from 'react-icons/pi';
 import { GiOpenGate } from 'react-icons/gi';
@@ -43,6 +43,7 @@ const PlaceForm = () => {
         checkIn: "",
         checkOut: "",
         maxGuests: "",
+        price: "",
     })
 
     const navigate = useNavigate();
@@ -339,6 +340,23 @@ const PlaceForm = () => {
                                     </NumberInput> */}
                         </Flex>
                     </FormControl>
+
+                    <FormControl mt={4}>
+                        <FormLabel>Price</FormLabel>
+                        <p className='text-[14px] text-gray-600 my-2'>Price Per Night in USD</p>
+
+                        <Flex align="center">
+                            <Box as={BsCurrencyDollar} fontSize="xl" color="gray.400" />
+                            <Input
+                                onChange={handleInputChange}
+                                name="price"
+                                value={formData.price}
+                                required
+                                type="text" ml={2} />
+
+                        </Flex>
+                    </FormControl>
+
 
                     <Button type='submit' colorScheme="teal" mt={8} w="full">
                         Submit

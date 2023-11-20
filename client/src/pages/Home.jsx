@@ -1,15 +1,15 @@
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import { PlaceContext } from "../context/placeContext"
 import ListingCard from "../components/ListingCard"
 
 const Home = () => {
 
     const { allPlaces } = useContext(PlaceContext)
-    console.log("All places==>",allPlaces)
+    console.log("All places==>", allPlaces)
 
     return (
         <div>
-            <ListingCard myPlaces={allPlaces}/>
+            <ListingCard myPlaces={allPlaces} />
         </div>
     )
 }

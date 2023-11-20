@@ -24,7 +24,9 @@ router.post('/places', (req, res) => {
             checkIn: formData.checkIn,
             checkOut: formData.checkOut,
             maxGuests: formData.maxGuests,
+            price: formData.price,
             owner: userData._id,
+
         })
 
         res.json(placeDoc)

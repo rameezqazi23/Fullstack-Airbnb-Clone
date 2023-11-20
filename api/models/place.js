@@ -13,7 +13,8 @@ const PlaceSchema = new mongoose.Schema({
     extraInfo: String,
     checkIn: Date,
     checkOut: Date,
-    maxGuests: Number
+    maxGuests: Number,
+    price: Number,
 }, { timestamps: true })
 
 const PLACE = mongoose.model('places', PlaceSchema)

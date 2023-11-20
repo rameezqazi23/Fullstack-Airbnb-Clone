@@ -29,7 +29,15 @@ const Places = () => {
                     </div>
                     {/* <Link to={`/account/places/${placeId}`}>
                     </Link> */}
-                    <ListingCard myPlaces={places} />
+                    {places.length > 0 ? (
+                        <ListingCard myPlaces={places} />
+
+                    ) : (
+                        <div className='flex justify-center mt-8'>
+                            <p className='font-semibold text-[20px] text-gray-600'>Currently You have no places to offer</p>
+                        </div>
+
+                    )}
 
                 </div>
 

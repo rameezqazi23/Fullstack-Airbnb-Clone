@@ -29,7 +29,7 @@ const Places = () => {
                     </div>
                     {/* <Link to={`/account/places/${placeId}`}>
                     </Link> */}
-                    <ListingCard />
+                    <ListingCard myPlaces={places} />
 
                 </div>
 

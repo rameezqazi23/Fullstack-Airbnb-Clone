@@ -47,4 +47,9 @@ router.get('/place-page/:id', async (req, res) => {
     res.json(place)
 })
 
+router.get('/all-places', async (req, res) => {
+    const allPlaces = await PLACE.find({})
+    res.json(allPlaces)
+})
+
 export default router;

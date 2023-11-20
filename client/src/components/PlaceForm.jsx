@@ -122,13 +122,13 @@ const PlaceForm = () => {
     }, [addedPhotos, addPerks])
 
     //delete selected image
-    const deleteImage = () => {
+    const deleteImage = (filename) => {
         console.log("Running....", formData.photos)
-        setFormData((prev) => ({
-            ...prev,
-            photos: addedPhotos.pop(),
-        }))
-
+        // setFormData((prev) => ({
+        //     ...prev,
+        //     photos: addedPhotos.filter((photo) => photo !== filename),
+        // }))
+        setAddedPhotos([...addedPhotos.filter((photo) => photo !== filename)])
     }
 
 
@@ -185,7 +185,7 @@ const PlaceForm = () => {
                                 <img src={`http://localhost:8000/uploads/${image}`} alt="image"
                                     className='rounded-2xl w-full object-cover'
                                 />
-                                <div onClick={deleteImage} className='absolute cursor-pointer bottom-2 right-2 bg-black bg-opacity-80 p-2 rounded-full'>
+                                <div onClick={() => deleteImage(image)} className='absolute cursor-pointer bottom-2 right-2 bg-black bg-opacity-80 p-2 rounded-full'>
                                     <GoTrash color='white' />
                                 </div>
 

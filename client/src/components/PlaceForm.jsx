@@ -20,7 +20,7 @@ import { BsClock, BsCalendar, BsPeople } from 'react-icons/bs';
 import { AiFillCar, AiOutlineWifi } from 'react-icons/ai';
 import { PiTelevisionLight } from 'react-icons/pi';
 import { GiOpenGate } from 'react-icons/gi';
-import { FaKitchenSet } from 'react-icons/fa6';
+import { FaKitchenSet, FaRegStar, FaStar } from 'react-icons/fa6';
 import { BiSolidWasher, BiCloudUpload, BiSolidTrashAlt } from 'react-icons/bi';
 import { GoTrash } from 'react-icons/go'
 import { TbCalendarPlus } from 'react-icons/tb';
@@ -131,6 +131,11 @@ const PlaceForm = () => {
         setAddedPhotos([...addedPhotos.filter((photo) => photo !== filename)])
     }
 
+    //Select Image as Main
+    const selectAsMain = (filename) => {
+        setAddedPhotos([filename, ...addedPhotos.filter((photo) => photo !== filename)])
+    }
+
 
 
     return (
@@ -188,6 +193,15 @@ const PlaceForm = () => {
                                 <div onClick={() => deleteImage(image)} className='absolute cursor-pointer bottom-2 right-2 bg-black bg-opacity-80 p-2 rounded-full'>
                                     <GoTrash color='white' />
                                 </div>
+                                <div onClick={() => selectAsMain(image)} className='absolute cursor-pointer top-2 left-2 bg-black bg-opacity-80 p-2 rounded-full'>
+                                    {image === addedPhotos[0] && (
+                                        <FaStar color='white' />
+                                    )}
+                                    {image !== addedPhotos[0] && (
+                                        <FaRegStar color='white' />
+                                    )}
+                                </div>
+
 
                             </div>
                         ))}

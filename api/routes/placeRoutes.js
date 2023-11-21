@@ -40,12 +40,14 @@ router.get('/places', (req, res) => {
     jwt.verify(userToken, secretKey, {}, async (err, userData) => {
         const { _id } = userData;
         const placeDoc = await PLACE.find({ owner: _id })
+
         res.json(placeDoc)
     })
 })
 
 router.get('/place-page/:id', async (req, res) => {
     const place = await PLACE.findById(req.params.id)
+        .populate("owner", ['name', 'email'])
     res.json(place)
 })
 

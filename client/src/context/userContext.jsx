@@ -8,7 +8,7 @@ export const UserContextProvider = ({ children }) => {
     const [isUserAvailable, setIsUserAvailable] = useState(null);
     console.log("Context data==>", user)
 
-    
+
 
     useEffect(() => {
         if (!user) {
@@ -20,7 +20,7 @@ export const UserContextProvider = ({ children }) => {
     }, [user, setUser]);
 
     return (
-        <UserContext.Provider value={{ user, setUser,isUserAvailable }} >
+        <UserContext.Provider value={{ user, setUser, isUserAvailable }} >
             {children}
         </UserContext.Provider>
     )

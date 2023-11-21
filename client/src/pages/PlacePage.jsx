@@ -10,9 +10,17 @@ import { CgSoftwareUpload } from "react-icons/cg";
 import { FaRegHeart } from 'react-icons/fa';
 import { FiUpload } from 'react-icons/fi';
 
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { TbGridDots } from 'react-icons/tb';
+
 
 const PlacePage = () => {
     const [place, setPlace] = useState('')
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const [showAllPhotos, setShowAllPhotos] = useState(false);
+
     const { places } = useContext(PlaceContext);
     const { user } = useContext(UserContext);
     // const result = places.map((place) => (place._id))
@@ -26,47 +34,170 @@ const PlacePage = () => {
 
     console.log("Single Place data==>", place)
 
+
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        afterChange: (current) => setCurrentSlide(current),
+    };
+
+    if (!place) return;
+
+    if (showAllPhotos) {
+        return (
+            <div className='h-auto grid lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3'>
+                {place?.photos?.length > 0 && place?.photos?.map((photo) => (
+                    <div key={photo}>
+                        <img className='w-full h-auto object-cover rounded-xl' src={`http://localhost:8000/uploads/${photo}`} alt='photos' />
+                    </div>
+                ))}
+            </div>
+        )
+    }
+
     return (
-        <div className='mt-8 px-8'>
-            <h1 className='text-3xl font-semibold text-gray-800'>{place.title}</h1>
-            <div className='flex justify-between'>
-                <div className='flex gap-10 mt-4'>
+        <>
 
-                    <div>
-                        <p>
-                            Superhost <span className='font-semibold underline'>{place.owner?.name}</span>
-                        </p>
+            <div className='hidden md:flex flex-col w-full h-full mt-8 sm:px-28 px-8'>
+                <h1 className='text-2xl sm:text-3xl font-semibold text-gray-800'>{place.title}</h1>
+                <div className='sm:flex flex-row justify-between'>
+                    <div className='flex gap-10 mt-4'>
 
+                        <div className='text-[13px] sm:text-[16px]'>
+                            <p>
+                                Superhost <span className='font-semibold underline'>{place.owner?.name}</span>
+                            </p>
+
+                        </div>
+                        <div className='flex items-center gap-1 text-[13px] sm:text-[16px]'>
+                            <IoLocationSharp />
+                            <a
+                                className='font-semibold underline'
+                                target='_blank'
+                                rel='noreferrer'
+                                href={`https://maps.google.com/?q=${place.address}`}>
+                                {place.address}
+                            </a>
+                        </div>
                     </div>
-                    <div className='flex items-center gap-1 '>
-                        <IoLocationSharp />
-                        <a
-                            className='font-semibold underline'
-                            target='_blank'
-                            rel='noreferrer'
-                            href={`https://maps.google.com/?q=${place.address}`}>
-                            {place.address}
-                        </a>
+                    <div className='flex gap-10 px-8 justify-between sm:justify-normal mt-4'>
+                        <div className='flex items-center gap-2 cursor-pointer font-semibold underline'>
+                            <FiUpload />
+                            <p className='hidden md:flex'>Share</p>
+                        </div>
+                        <div className='flex items-center gap-2 cursor-pointer font-semibold underline'>
+                            <FaRegHeart />
+                            <p className='hidden md:flex'>Save</p>
+                        </div>
                     </div>
                 </div>
-                <div className='flex gap-10 px-8'>
-                    <div className='flex items-center gap-2 cursor-pointer font-semibold underline'>
-                        <FiUpload />
-                        <p>Share</p>
-                    </div>
-                    <div className='flex items-center gap-2 cursor-pointer font-semibold underline'>
-                        <FaRegHeart />
-                        <p>Save</p>
+
+                <div className='relative'>
+                    <div className='my-8 grid gap-2 grid-cols-[2fr_1fr]'>
+                        <div>
+                            {place.photos?.[0] && (
+                                <div>
+                                    <img className='aspect-square object-cover rounded-s-xl' src={`http://localhost:8000/uploads/${place?.photos[0]}`} alt="places" />
+                                </div>
+                            )}
+                        </div>
+
+                        <div className='grid gap-2'>
+                            {place.photos?.[1] && (
+                                <img className='aspect-square object-cover rounded-se-xl' src={`http://localhost:8000/uploads/${place?.photos[1]}`} alt="places" />
+                            )}
+                            {place.photos?.[0] && (
+                                <img className='aspect-square object-cover rounded-ee-xl' src={`http://localhost:8000/uploads/${place?.photos[2]}`} alt="places" />
+                            )}
+                        </div>
+
+                        <button
+                            onClick={() => setShowAllPhotos(true)}
+                            className='flex items-center gap-2 backdrop-filter backdrop-blur-sm bg-opacity-90 bg-[#f0efef] 
+                    font-semibold border border-gray-500 px-4 py-2 rounded-lg absolute bottom-12 right-4'>
+                            <TbGridDots />
+                            Show all photos
+                        </button>
                     </div>
                 </div>
+
+                {/* <div className='grid grid-cols-2 col-span-2 gap-2 my-8'>
+                    {place.photos?.[0] && (
+                        <img className='aspect-square row-span-2 object-cover w-full h-full' src={`http://localhost:8000/uploads/${place?.photos[0]}`} alt="places" />
+                    )}
+                    {place.photos?.[1] && (
+                        <img className='aspect-square object-cover w-full h-[220px]' src={`http://localhost:8000/uploads/${place?.photos[1]}`} alt="places" />
+                    )}
+                    {place.photos?.[2] && (
+                        <img className='aspect-square object-cover w-full h-[220px]' src={`http://localhost:8000/uploads/${place?.photos[2]}`} alt="places" />
+                    )}
+                </div> */}
 
 
             </div>
-            {/* <div className=''>
-                
-            </div> */}
 
-        </div>
+
+            {/* Mobile Menu */}
+            <div className='flex flex-col sm:hidden'>
+                <div>
+                    <Slider {...settings}>
+                        {place?.photos?.map((image, index) => (
+                            <div key={index}>
+                                <img
+                                    className="aspect-square object-cover"
+                                    src={`http://localhost:8000/uploads/${image}`}
+                                    alt={`Image ${index + 1}`}
+                                />
+                            </div>
+                        ))}
+                    </Slider>
+                    <div className="text-center mt-2">
+                        <p className="text-sm text-gray-600">
+                            Image {currentSlide + 1}/{place.photos?.length}
+                        </p>
+                    </div>
+                </div>
+
+                <h1 className='text-2xl sm:text-3xl font-semibold text-gray-800 px-6 py-4'>{place.title}</h1>
+                <div className='flex-row justify-between px-6'>
+                    <div className='flex gap-10'>
+
+                        <div className='text-[14px]'>
+                            <p>
+                                Superhost <span className='font-semibold underline'>{place.owner?.name}</span>
+                            </p>
+
+                        </div>
+                        <div className='flex items-center gap-1 text-[13px] sm:text-[16px]'>
+                            <IoLocationSharp />
+                            <a
+                                className='font-semibold underline'
+                                target='_blank'
+                                rel='noreferrer'
+                                href={`https://maps.google.com/?q=${place.address}`}>
+                                {place.address}
+                            </a>
+                        </div>
+                    </div>
+                    <div className='flex gap-10 px-8 justify-between sm:justify-normal mt-4'>
+                        <div className='flex items-center gap-2 cursor-pointer font-semibold underline'>
+                            <FiUpload />
+                            <p className='hidden md:flex'>Share</p>
+                        </div>
+                        <div className='flex items-center gap-2 cursor-pointer font-semibold underline'>
+                            <FaRegHeart />
+                            <p className='hidden md:flex'>Save</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </>
+
     )
 }
 

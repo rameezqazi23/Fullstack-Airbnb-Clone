@@ -50,11 +50,15 @@ const PlacePage = () => {
         return (
             <div className='h-auto grid lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3'>
                 {place?.photos?.length > 0 && place?.photos?.map((photo) => (
-                    <div key={photo}>
-                        <img className='w-full h-auto object-cover rounded-xl' src={`http://localhost:8000/uploads/${photo}`} alt='photos' />
+                    <div key={photo} className="aspect-w-3 aspect-h-4 rounded-xl overflow-hidden">
+                        <div className="w-full h-full flex items-center justify-center">
+                            <img className='w-full h-full object-cover' src={`http://localhost:8000/uploads/${photo}`} alt='photos' />
+                        </div>
                     </div>
                 ))}
             </div>
+
+
         )
     }
 
@@ -96,33 +100,39 @@ const PlacePage = () => {
                 </div>
 
                 <div className='relative'>
-                    <div className='my-8 grid gap-2 grid-cols-[2fr_1fr]'>
+                    <div className='my-8 grid gap-2 grid-cols-[2fr_1fr] h-[300px]'>
                         <div>
                             {place.photos?.[0] && (
-                                <div>
-                                    <img className='aspect-square object-cover rounded-s-xl' src={`http://localhost:8000/uploads/${place?.photos[0]}`} alt="places" />
+                                <div className="aspect-w-1 aspect-h-1">
+                                    <img className='w-full h-full object-cover rounded-s-xl' src={`http://localhost:8000/uploads/${place?.photos[0]}`} alt="places" />
                                 </div>
                             )}
                         </div>
 
                         <div className='grid gap-2'>
                             {place.photos?.[1] && (
-                                <img className='aspect-square object-cover rounded-se-xl' src={`http://localhost:8000/uploads/${place?.photos[1]}`} alt="places" />
+                                <div className="aspect-w-1 aspect-h-1 max-h-[150px]">
+                                    <img className='w-full h-full object-cover rounded-se-xl' src={`http://localhost:8000/uploads/${place?.photos[1]}`} alt="places" />
+                                </div>
                             )}
                             {place.photos?.[0] && (
-                                <img className='aspect-square object-cover rounded-ee-xl' src={`http://localhost:8000/uploads/${place?.photos[2]}`} alt="places" />
+                                <div className="aspect-w-1 aspect-h-1 max-h-[150px]">
+                                    <img className='w-full h-full object-cover rounded-ee-xl' src={`http://localhost:8000/uploads/${place?.photos[2]}`} alt="places" />
+                                </div>
                             )}
                         </div>
 
                         <button
                             onClick={() => setShowAllPhotos(true)}
                             className='flex items-center gap-2 backdrop-filter backdrop-blur-sm bg-opacity-90 bg-[#f0efef] 
-                    font-semibold border border-gray-500 px-4 py-2 rounded-lg absolute bottom-12 right-4'>
+                font-semibold border border-gray-500 px-4 py-2 rounded-lg absolute top-12 right-4'>
                             <TbGridDots />
                             Show all photos
                         </button>
                     </div>
                 </div>
+
+
 
                 {/* <div className='grid grid-cols-2 col-span-2 gap-2 my-8'>
                     {place.photos?.[0] && (
@@ -141,7 +151,7 @@ const PlacePage = () => {
 
 
             {/* Mobile Menu */}
-            <div className='flex flex-col sm:hidden'>
+            <div className='flex flex-col md:hidden'>
                 <div>
                     <Slider {...settings}>
                         {place?.photos?.map((image, index) => (

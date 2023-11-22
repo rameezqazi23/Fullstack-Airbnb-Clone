@@ -7,13 +7,15 @@ import axios from 'axios';
 import { IoLocationSharp } from "react-icons/io5";
 import { UserContext } from '../context/userContext';
 import { CgSoftwareUpload } from "react-icons/cg";
-import { FaRegHeart } from 'react-icons/fa';
+import { FaArrowUp, FaRegHeart } from 'react-icons/fa';
 import { FiUpload } from 'react-icons/fi';
 
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { TbGridDots } from 'react-icons/tb';
+import { IoIosArrowBack } from "react-icons/io";
+
 
 
 const PlacePage = () => {
@@ -48,14 +50,27 @@ const PlacePage = () => {
 
     if (showAllPhotos) {
         return (
-            <div className='h-auto grid lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3'>
-                {place?.photos?.length > 0 && place?.photos?.map((photo) => (
-                    <div key={photo} className="aspect-w-3 aspect-h-4 rounded-xl overflow-hidden">
-                        <div className="w-full h-full flex items-center justify-center">
-                            <img className='w-full h-full object-cover' src={`http://localhost:8000/uploads/${photo}`} alt='photos' />
+            <div className='bg-[#0f0f0f] w-full h-full relative'>
+                <div className='mx-8'>
+                    <button onClick={() => setShowAllPhotos(false)} className='hover:bg-primary duration-200 rounded-full my-4'>
+                        <IoIosArrowBack color='white' size={30} />
+                    </button>
+                </div>
+                <h2 className='text-2xl text-white mb-6 mx-8'>Photo tour</h2>
+                <div className='p-8 h-auto grid lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3'>
+                    {place?.photos?.length > 0 && place?.photos?.map((photo) => (
+                        <div key={photo} className="aspect-w-3 aspect-h-4 rounded-xl overflow-hidden">
+                            <div className="w-full h-full flex items-center justify-center">
+                                <img className='w-full h-full object-cover' src={`http://localhost:8000/uploads/${photo}`} alt='photos' />
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
+                <div className='fixed sm:hidden flex z-10 mx-8 bottom-12 right-4 animate-bounce'>
+                    <button onClick={() => window.scrollTo(0, 0)} className='rounded-full p-2 bg-primary'>
+                        <FaArrowUp color='white' size={30} />
+                    </button>
+                </div>
             </div>
 
 
@@ -64,7 +79,6 @@ const PlacePage = () => {
 
     return (
         <>
-
             <div className='hidden md:flex flex-col w-full h-full mt-8 sm:px-28 px-8'>
                 <h1 className='text-2xl sm:text-3xl font-semibold text-gray-800'>{place.title}</h1>
                 <div className='sm:flex flex-row justify-between'>
@@ -100,26 +114,26 @@ const PlacePage = () => {
                 </div>
 
                 <div className='relative'>
-                    <div className='my-8 grid gap-2 grid-cols-[2fr_1fr] h-[300px]'>
+                    <div className='my-8 grid gap-2 grid-cols-[2fr_1fr] rounded-xl overflow-hidden'>
                         <div>
                             {place.photos?.[0] && (
                                 <div className="aspect-w-1 aspect-h-1">
-                                    <img className='w-full h-full object-cover rounded-s-xl' src={`http://localhost:8000/uploads/${place?.photos[0]}`} alt="places" />
+                                    <img className='aspect-square object-cover' src={`http://localhost:8000/uploads/${place?.photos[0]}`} alt="places" />
                                 </div>
                             )}
                         </div>
 
-                        <div className='grid gap-2'>
+                        <div className='grid'>
                             {place.photos?.[1] && (
-                                <div className="aspect-w-1 aspect-h-1 max-h-[150px]">
-                                    <img className='w-full h-full object-cover rounded-se-xl' src={`http://localhost:8000/uploads/${place?.photos[1]}`} alt="places" />
-                                </div>
+
+                                <img className='aspect-square object-cover' src={`http://localhost:8000/uploads/${place?.photos[1]}`} alt="places" />
+
                             )}
-                            {place.photos?.[0] && (
-                                <div className="aspect-w-1 aspect-h-1 max-h-[150px]">
-                                    <img className='w-full h-full object-cover rounded-ee-xl' src={`http://localhost:8000/uploads/${place?.photos[2]}`} alt="places" />
-                                </div>
-                            )}
+                            <div className='overflow-hidden'>
+                                {place.photos?.[2] && (
+                                    <img className='aspect-square object-cover relative top-2' src={`http://localhost:8000/uploads/${place?.photos[2]}`} alt="places" />
+                                )}
+                            </div>
                         </div>
 
                         <button
@@ -202,9 +216,66 @@ const PlacePage = () => {
                             <p className='hidden md:flex'>Save</p>
                         </div>
                     </div>
+
+                    <button
+                        onClick={() => setShowAllPhotos(true)}
+                        className='flex items-center gap-2 backdrop-filter backdrop-blur-sm bg-opacity-90 bg-[#f0efef] 
+                font-semibold border border-gray-500 px-4 py-2 rounded-lg absolute bottom-52 right-4'>
+                        <TbGridDots />
+                        Show all photos
+                    </button>
                 </div>
 
             </div>
+
+            {/* Description */}
+            <div className='flex flex-col w-full h-full sm:px-28 px-8'>
+                <div className='max-w-[600px]'>
+                    <h1>Description</h1>
+                    <p>
+                        {place.description}
+                    </p>
+
+                </div>
+                <div className='w-[200px] h-[200px] bg-primary rounded-xl sticky top-20 right-0 z-10 '>
+
+                </div>
+
+                <p>
+                    {place.description}
+                </p>
+                <p>
+                    {place.description}
+                </p>
+                <p>
+                    {place.description}
+                </p>
+                <p>
+                    {place.description}
+                </p>
+                <p>
+                    {place.description}
+                </p>
+                <p>
+                    {place.description}
+                </p>
+                <p>
+                    {place.description}
+                </p>
+                <p>
+                    {place.description}
+                </p>
+                <p>
+                    {place.description}
+                </p>
+                <p>
+                    {place.description}
+                </p>
+                <p>
+                    {place.description}
+                </p>
+            </div>
+
 
         </>
 

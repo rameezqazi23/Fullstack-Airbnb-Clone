@@ -15,6 +15,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { TbGridDots } from 'react-icons/tb';
 import { IoIosArrowBack } from "react-icons/io";
+import { BookingPlaceWidget } from '../components';
 
 
 
@@ -220,7 +221,7 @@ const PlacePage = () => {
                     <button
                         onClick={() => setShowAllPhotos(true)}
                         className='flex items-center gap-2 backdrop-filter backdrop-blur-sm bg-opacity-90 bg-[#f0efef] 
-                font-semibold border border-gray-500 px-4 py-2 rounded-lg absolute bottom-52 right-4'>
+                font-semibold border border-gray-500 px-4 py-2 rounded-lg absolute top-24 right-4'>
                         <TbGridDots />
                         Show all photos
                     </button>
@@ -228,52 +229,23 @@ const PlacePage = () => {
 
             </div>
 
-            {/* Description */}
-            <div className='flex flex-col w-full h-full sm:px-28 px-8'>
-                <div className='max-w-[600px]'>
-                    <h1>Description</h1>
-                    <p>
-                        {place.description}
-                    </p>
+            {/* Description flex flex-row justify-between */}
+            <div className='flex flex-col w-full h-full sm:px-28 px-8 mb-8'>
+                <div className='grid grid-cols-1 md:grid-cols-[2fr_1fr]'>
+                    <div className='max-w-[600px]'>
+                        <h1 className='text-2xl font-semibold mb-6 text-black'>Description</h1>
+                        <p className='font-[16px] leading-6 text-black'>
+                            {place.description}
+                        </p>
+                    </div>
+                    <div>
+                        <BookingPlaceWidget place={place} />
+                    </div>
 
                 </div>
-                <div className='w-[200px] h-[200px] bg-primary rounded-xl sticky top-20 right-0 z-10 '>
+                {/* <div className='w-[200px] h-[200px] bg-primary rounded-xl sticky top-20 right-0 z-10 '></div> */}
 
-                </div>
 
-                <p>
-                    {place.description}
-                </p>
-                <p>
-                    {place.description}
-                </p>
-                <p>
-                    {place.description}
-                </p>
-                <p>
-                    {place.description}
-                </p>
-                <p>
-                    {place.description}
-                </p>
-                <p>
-                    {place.description}
-                </p>
-                <p>
-                    {place.description}
-                </p>
-                <p>
-                    {place.description}
-                </p>
-                <p>
-                    {place.description}
-                </p>
-                <p>
-                    {place.description}
-                </p>
-                <p>
-                    {place.description}
-                </p>
             </div>
 
 

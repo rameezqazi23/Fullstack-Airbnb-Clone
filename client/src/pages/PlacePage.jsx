@@ -119,7 +119,7 @@ const PlacePage = () => {
                         <div>
                             {place.photos?.[0] && (
                                 <div className="aspect-w-1 aspect-h-1">
-                                    <img className='aspect-square object-cover' src={`http://localhost:8000/uploads/${place?.photos[0]}`} alt="places" />
+                                    <img onClick={() => setShowAllPhotos(true)} className='aspect-square object-cover cursor-pointer' src={`http://localhost:8000/uploads/${place?.photos[0]}`} alt="places" />
                                 </div>
                             )}
                         </div>
@@ -127,12 +127,12 @@ const PlacePage = () => {
                         <div className='grid'>
                             {place.photos?.[1] && (
 
-                                <img className='aspect-square object-cover' src={`http://localhost:8000/uploads/${place?.photos[1]}`} alt="places" />
+                                <img onClick={() => setShowAllPhotos(true)} className='aspect-square object-cover cursor-pointer' src={`http://localhost:8000/uploads/${place?.photos[1]}`} alt="places" />
 
                             )}
                             <div className='overflow-hidden'>
                                 {place.photos?.[2] && (
-                                    <img className='aspect-square object-cover relative top-2' src={`http://localhost:8000/uploads/${place?.photos[2]}`} alt="places" />
+                                    <img onClick={() => setShowAllPhotos(true)} className='aspect-square object-cover cursor-pointer relative top-2' src={`http://localhost:8000/uploads/${place?.photos[2]}`} alt="places" />
                                 )}
                             </div>
                         </div>
@@ -231,12 +231,18 @@ const PlacePage = () => {
 
             {/* Description flex flex-row justify-between */}
             <div className='flex flex-col w-full h-full sm:px-28 px-8 mb-8'>
-                <div className='grid grid-cols-1 md:grid-cols-[2fr_1fr]'>
+                <div className='grid grid-cols-1 lg:grid-cols-[2fr_1fr]'>
                     <div className='max-w-[600px] mb-8'>
                         <h1 className='text-2xl font-semibold mb-6 text-black'>Description</h1>
                         <p className='font-[16px] leading-6 text-black'>
                             {place.description}
                         </p>
+                        <h1 className='text-2xl font-semibold my-6 text-black'>Extra Info</h1>
+                        <p className='font-[16px] leading-6 text-black'>
+                            {place.extraInfo}
+                        </p>
+                        <div className='border-0 border-b mt-16 border-gray-300'></div>
+                        <h1 className='text-2xl font-semibold my-6 text-black'>What this place offers</h1>
                     </div>
                     <div>
                         <BookingPlaceWidget place={place} />

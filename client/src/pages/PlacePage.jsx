@@ -232,7 +232,7 @@ const PlacePage = () => {
             {/* Description flex flex-row justify-between */}
             <div className='flex flex-col w-full h-full sm:px-28 px-8 mb-8'>
                 <div className='grid grid-cols-1 md:grid-cols-[2fr_1fr]'>
-                    <div className='max-w-[600px]'>
+                    <div className='max-w-[600px] mb-8'>
                         <h1 className='text-2xl font-semibold mb-6 text-black'>Description</h1>
                         <p className='font-[16px] leading-6 text-black'>
                             {place.description}

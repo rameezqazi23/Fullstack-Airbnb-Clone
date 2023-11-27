@@ -1,20 +1,26 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { differenceInCalendarDays } from 'date-fns'
+import axios from 'axios';
 
 
 const BookingPlaceWidget = ({ place }) => {
     const [checkIn, setCheckIn] = useState('');
     const [checkOut, setCheckOut] = useState('');
     const [noOfGuests, setNoOfGuests] = useState(1);
+    const [name, setName] = useState('');
+    const [cellPhone, setCellPhone] = useState('')
 
-    const handleBooking = () => {
-        console.log("Bookins", { checkIn, checkOut, noOfGuests })
+    const handleBooking = async () => {
+        console.log("Bookings", { checkIn, checkOut, noOfGuests, name, cellPhone })
+        await axios.post('/booking', { checkIn, checkOut, noOfGuests, name, cellPhone })
     }
 
     let numberOfDays = 0;
     if (checkIn && checkOut) {
         numberOfDays = differenceInCalendarDays(new Date(checkOut), new Date(checkIn))
     }
+
+
 
     return (
         <div className='w-[370px] h-auto p-6 border border-gray-300 rounded-xl shadow-xl text-black'>
@@ -50,16 +56,18 @@ const BookingPlaceWidget = ({ place }) => {
                     <div className='flex flex-col py-2 px-4 border-gray-300'>
                         <label className='text-[11px] font-semibold'>NAME</label>
                         <input
-                            value="John"
-                            // onChange={(e) => setNoOfGuests(e.target.value)}
+                            value={name}
+                            placeholder='John'
+                            onChange={(e) => setName(e.target.value)}
                             className='border border-gray-300 px-4 py-2 rounded-lg my-2'
                             type="text" />
                     </div>
                     <div className='flex flex-col px-4 mb-4 border-gray-300'>
                         <label className='text-[11px] font-semibold'>PHONE</label>
                         <input
-                            value="+92-3222582823"
-                            // onChange={(e) => setNoOfGuests(e.target.value)}
+                            value={cellPhone}
+                            placeholder='+92-3222582823'
+                            onChange={(e) => setCellPhone(e.target.value)}
                             className='border border-gray-300 px-4 py-2 rounded-lg my-2'
                             type="tel" />
                     </div>
@@ -71,12 +79,10 @@ const BookingPlaceWidget = ({ place }) => {
                 Book Now
             </button>
 
-
-
             {numberOfDays > 0 && (
                 <div className='mt-4'>
                     <div className='flex justify-between'>
-                        <p className='underline'>${place.price} x {numberOfDays}nights</p>
+                        <p className='underline'>${place.price} x {numberOfDays} nights</p>
                         <p>${place.price * numberOfDays}</p>
                     </div>
                     <div className='flex justify-between my-2'>

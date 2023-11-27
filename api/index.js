@@ -9,6 +9,7 @@ import { connectToMongoDb } from "./mongodb/connect.js";
 import userRoutes from "./routes/userRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import placeRoutes from "./routes/placeRoutes.js";
+import bookingRoutes from "./routes/bookingRoutes.js";
 
 
 //configurations
@@ -41,7 +42,8 @@ app.get('/', (req, res) => {
 //external routes
 app.use('/', userRoutes)
 app.use('/', uploadRoutes)
-app.use('/',placeRoutes)
+app.use('/', placeRoutes)
+app.use('/', bookingRoutes)
 
 // app.get('/profile', (req, res) => {
 //     res.json("profile")

@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  /* font-family: "Crimson Pro", serif; */
+  /* font-family: "Inter", sans-serif; */
+  /* font-family: "Lato", sans-serif; */
+  /* font-family: "Open Sans", sans-serif; */
+  font-family: "Raleway", sans-serif;
+}
+
 @layer base {
   html {
     @apply scroll-smooth;

@@ -8,7 +8,10 @@ export default {
     extend: {
       colors:{
         primary:"#ff5a60",
-      }
+      },
+      fontFamily: {
+        inter: ['Inter var', 'sans-serif'],
+      },
     },
   },
   plugins: [],

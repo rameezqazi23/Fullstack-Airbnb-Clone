@@ -16,6 +16,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { TbGridDots } from 'react-icons/tb';
 import { IoIosArrowBack } from "react-icons/io";
 import { BookingPlaceWidget } from '../components';
+import BookingPopUp from '../components/BookingPopUp';
 
 
 
@@ -249,6 +250,10 @@ const PlacePage = () => {
                     </div>
 
                 </div>
+
+                {/* <div className='kjkj'>
+                    <BookingPopUp />
+                </div> */}
                 {/* <div className='w-[200px] h-[200px] bg-primary rounded-xl sticky top-20 right-0 z-10 '></div> */}
 
 

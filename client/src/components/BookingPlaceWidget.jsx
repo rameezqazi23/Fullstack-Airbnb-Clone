@@ -1,18 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { differenceInCalendarDays } from 'date-fns'
 import axios from 'axios';
 import { ThreeDots } from 'react-loader-spinner';
+import BookingPopUp from './BookingPopUp';
 
 
 
 const BookingPlaceWidget = ({ place }) => {
-    // const [checkIn, setCheckIn] = useState('');
-    // const [checkOut, setCheckOut] = useState('');
-    // const [noOfGuests, setNoOfGuests] = useState(1);
-    // const [name, setName] = useState('');
-    // const [cellPhone, setCellPhone] = useState('')
-    const [isLoading, setIsLoading] = useState(false)
 
+    const [isLoading, setIsLoading] = useState(false)
+    const [isBookingPopUp, setIsBookingPopUp] = useState(false);
     const [bookingFormData, setBookingFormData] = useState({
         checkIn: '',
         checkOut: '',
@@ -21,6 +18,16 @@ const BookingPlaceWidget = ({ place }) => {
         cellPhone: '',
 
     })
+
+    let numberOfDays = 0;
+    const cleaningFee = 80;
+    const serviceFee = 42;
+
+    if (bookingFormData.checkIn && bookingFormData.checkOut) {
+
+        numberOfDays = differenceInCalendarDays(new Date(bookingFormData.checkOut), new Date(bookingFormData.checkIn))
+        var totalPrice = (place.price * numberOfDays) + cleaningFee + serviceFee
+    }
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
@@ -31,29 +38,36 @@ const BookingPlaceWidget = ({ place }) => {
 
     }
 
-    //checkIn && checkOut && noOfGuests && name && cellPhone
-
     const handleBooking = (e) => {
         e.preventDefault()
-        if (bookingFormData) {
+        if (bookingFormData.checkIn && bookingFormData.checkOut && bookingFormData.noOfGuests && bookingFormData.name && bookingFormData.cellPhone) {
             setIsLoading(true)
             setTimeout(async () => {
                 console.log("Bookings", bookingFormData)
-                await axios.post('/booking', { bookingFormData })
-                    .then(() => {
-                        setIsLoading(false)
-                        setBookingFormData({})
-                    })
+                try {
+                    await axios.post('/booking',
+                        {
+                            bookingFormData,
+                            price: totalPrice,
+                            _id: place._id
+                        })
+                        .then(() => {
+                            setIsLoading(false)
+                            setBookingFormData({
+                                checkIn: '',
+                                checkOut: '',
+                                noOfGuests: 1
+                            })
+                        }).then(setIsBookingPopUp(true))
+
+                } catch (error) {
+                    console.log(error)
+                    setIsLoading(false)
+                }
             }, 1000);
         }
+
     }
-
-    let numberOfDays = 0;
-    if (bookingFormData.checkIn && bookingFormData.checkOut) {
-        numberOfDays = differenceInCalendarDays(new Date(bookingFormData.checkOut), new Date(bookingFormData.checkIn))
-    }
-
-
 
     return (
         <form onSubmit={handleBooking} className='w-[370px] h-auto p-6 border border-gray-300 rounded-xl shadow-xl text-black'>
@@ -139,20 +153,26 @@ const BookingPlaceWidget = ({ place }) => {
                     </div>
                     <div className='flex justify-between my-2'>
                         <p className='underline'>Cleaning fee</p>
-                        <p>$80</p>
+                        <p>${cleaningFee}</p>
                     </div>
                     <div className='flex justify-between'>
                         <p className='underline'>Airbnb Service fee</p>
-                        <p>$42</p>
+                        <p>${serviceFee}</p>
                     </div>
                     <div className='border-0 border-b my-7 border-gray-300'></div>
                     <div className='flex justify-between'>
                         <h2 className='font-bold text-gray-800 text-[17px]'>Total before taxes</h2>
-                        <p className='font-bold text-gray-800 text-[17px]'>${(place.price * numberOfDays) + 80 + 42}</p>
+                        <p className='font-bold text-gray-800 text-[17px]'>${totalPrice}</p>
                     </div>
 
                 </div>
             )}
+            {isBookingPopUp && (
+                <div>
+                    <BookingPopUp setIsBookingPopUp={setIsBookingPopUp} />
+                </div>
+            )
+            }
         </form>
 
     )

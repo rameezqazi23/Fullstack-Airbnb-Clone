@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Places } from "../components";
 import { AiOutlineUser } from 'react-icons/ai';
 import { BsBuildingAdd, BsCalendar2Plus } from 'react-icons/bs';
+import BookingsPage from "./BookingsPage";
 
 const Account = () => {
     const { user, isUserAvailable } = useContext(UserContext);
@@ -54,8 +55,13 @@ const Account = () => {
                 {subpage === 'places' && (
                     <Places />
                 )
-
                 }
+
+                {subpage === 'bookings' &&
+                <div>
+                    <BookingsPage />
+                </div>
+            }
             </div>
         </div>
 

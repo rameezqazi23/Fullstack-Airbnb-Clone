@@ -4,20 +4,14 @@ import PlaceForm from './PlaceForm';
 import ListingCard from './ListingCard';
 import { useContext } from 'react';
 import { PlaceContext } from '../context/placeContext';
+import { BookingsPage } from '../pages';
 
 
 const Places = () => {
     const { action } = useParams();
     const { places } = useContext(PlaceContext)
 
-
-    // const data = places.map(place => place._id)
-    // for (let i = 0; i < places.length; i++) {
-    //     var placeId = places[i]._id
-    // }
-
-    // console.log("PLaces data==>", placeId)
-
+    console.log("Action==>", { action })
 
     return (
         <div className='w-full h-full'>
@@ -25,10 +19,11 @@ const Places = () => {
                 <div className='w-full h-full'>
                     <div className='flex justify-center items-center mx-auto max-w-[350px]'>
                         <Link to='/account/places/new' className='flex justify-center py-2 px-4 gap-2 text-white text-[16px] font-medium rounded-full mt-8 items-center bg-primary'>
-                            <MdAddCircleOutline /> Add new place</Link>
+                            <MdAddCircleOutline />
+                            Add new place
+                        </Link>
                     </div>
-                    {/* <Link to={`/account/places/${placeId}`}>
-                    </Link> */}
+
                     {places.length > 0 ? (
                         <ListingCard myPlaces={places} />
 
@@ -47,6 +42,8 @@ const Places = () => {
                     <PlaceForm />
                 </div>
             }
+            
+
 
         </div>
     )

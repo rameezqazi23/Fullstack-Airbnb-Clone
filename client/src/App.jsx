@@ -1,7 +1,7 @@
 import { Navbar } from "./components"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react'
-import { Account, Home, PlacePage, SignIn, SignUp } from "./pages";
+import { Account, BookingPage, BookingsPage, Home, PlacePage, SignIn, SignUp } from "./pages";
 import axios from "axios";
 import { UserContextProvider } from "./context/userContext";
 // import Test from "./pages/Test";
@@ -28,6 +28,7 @@ function App() {
                 <Route path="/account/:subpage?" element={<Account />} />
                 <Route path="/account/:subpage/:action" element={<Account />} />
                 <Route path="/account/places/place-page/:id" element={<PlacePage />} />
+                <Route path="/account/booking-page/:id" element={<BookingPage />} />
                 {/* <Route path="/test" element={<Test />} /> */}
               </Routes>
             </PlaceContextProvider>

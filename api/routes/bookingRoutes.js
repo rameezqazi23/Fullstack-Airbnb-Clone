@@ -1,6 +1,11 @@
 import express from 'express';
 import BOOKING from '../models/booking.js';
+import * as dotenv from "dotenv";
+import jwt from 'jsonwebtoken';
+
 const router = express.Router();
+
+const secretKey = process.env.JWT_SECRET_KEY;
 
 router.post('/bookings', async (req, res) => {
     const { bookingFormData, price, _id } = req.body
@@ -20,6 +25,16 @@ router.post('/bookings', async (req, res) => {
         res.status(400).json(error)
 
     }
+})
+
+router.get('/bookings', async (req, res) => {
+    const { userToken } = req.cookies
+    jwt.verify(userToken, secretKey, {}, async(err, bookingData) => {
+        const { _id } = bookingData;
+        const bookingDoc = await BOOKING.find({ place: _id })
+        res.json(bookingDoc)
+    })
+
 })
 
 export default router;

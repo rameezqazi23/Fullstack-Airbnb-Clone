@@ -2,7 +2,11 @@ import { mongoose } from 'mongoose';
 const BookingScheme = new mongoose.Schema({
     place: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true
+        required: true,
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
     },
     checkIn: {
         type: Date,

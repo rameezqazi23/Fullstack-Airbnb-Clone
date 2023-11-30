@@ -2,7 +2,7 @@ import express from 'express';
 import BOOKING from '../models/booking.js';
 const router = express.Router();
 
-router.post('/booking', async (req, res) => {
+router.post('/bookings', async (req, res) => {
     const { bookingFormData, price, _id } = req.body
     try {
         const bookingDoc = await BOOKING.create({

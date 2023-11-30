@@ -4,7 +4,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { Account, Home, PlacePage, SignIn, SignUp } from "./pages";
 import axios from "axios";
 import { UserContextProvider } from "./context/userContext";
-import Test from "./pages/Test";
+// import Test from "./pages/Test";
 import { PlaceContextProvider } from "./context/placeContext";
 
 axios.defaults.baseURL = 'http://localhost:8000';
@@ -28,7 +28,7 @@ function App() {
                 <Route path="/account/:subpage?" element={<Account />} />
                 <Route path="/account/:subpage/:action" element={<Account />} />
                 <Route path="/account/places/place-page/:id" element={<PlacePage />} />
-                <Route path="/test" element={<Test />} />
+                {/* <Route path="/test" element={<Test />} /> */}
               </Routes>
             </PlaceContextProvider>
           </Router>

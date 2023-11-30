@@ -2,7 +2,10 @@ import { useState } from 'react'
 import { differenceInCalendarDays } from 'date-fns'
 import axios from 'axios';
 import { ThreeDots } from 'react-loader-spinner';
-import BookingPopUp from './BookingPopUp';
+import { BookingPopUp } from '../components';
+import { useNavigate } from "react-router-dom";
+
+// import BookingPopUp from './BookingPopUp';
 
 
 
@@ -10,6 +13,7 @@ const BookingPlaceWidget = ({ place }) => {
 
     const [isLoading, setIsLoading] = useState(false)
     const [isBookingPopUp, setIsBookingPopUp] = useState(false);
+    const [redirect, setRedirect] = useState('');
     const [bookingFormData, setBookingFormData] = useState({
         checkIn: '',
         checkOut: '',
@@ -18,6 +22,7 @@ const BookingPlaceWidget = ({ place }) => {
         cellPhone: '',
 
     })
+
 
     let numberOfDays = 0;
     const cleaningFee = 80;
@@ -45,7 +50,7 @@ const BookingPlaceWidget = ({ place }) => {
             setTimeout(async () => {
                 console.log("Bookings", bookingFormData)
                 try {
-                    await axios.post('/booking',
+                    const response = await axios.post('/bookings',
                         {
                             bookingFormData,
                             price: totalPrice,
@@ -58,17 +63,24 @@ const BookingPlaceWidget = ({ place }) => {
                                 checkOut: '',
                                 noOfGuests: 1
                             })
-                        }).then(setIsBookingPopUp(true))
+                        }).then(() => setIsBookingPopUp(true)
+                        )
+                    // const bookingId = response.bookingFormData._id
+                    setRedirect('true')
+                    console.log("Response============>", response)
+                    // console.log("Booking id=======>", bookingId)
+
 
                 } catch (error) {
                     console.log(error)
                     setIsLoading(false)
                 }
+
             }, 1000);
         }
 
     }
-
+    // console.log("Booking form Data==>", bookingFormData)
     return (
         <form onSubmit={handleBooking} className='w-[370px] h-auto p-6 border border-gray-300 rounded-xl shadow-xl text-black'>
             <h2 className='font-semibold text-xl'>${place.price} <span className='font-normal text-[16px]'>night</span></h2>
@@ -169,7 +181,7 @@ const BookingPlaceWidget = ({ place }) => {
             )}
             {isBookingPopUp && (
                 <div>
-                    <BookingPopUp setIsBookingPopUp={setIsBookingPopUp} />
+                    <BookingPopUp setIsBookingPopUp={setIsBookingPopUp} redirect={redirect} />
                 </div>
             )
             }

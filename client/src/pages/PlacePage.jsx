@@ -6,7 +6,6 @@ import axios from 'axios';
 
 import { IoLocationSharp } from "react-icons/io5";
 import { UserContext } from '../context/userContext';
-import { CgSoftwareUpload } from "react-icons/cg";
 import { FaArrowUp, FaRegHeart } from 'react-icons/fa';
 import { FiUpload } from 'react-icons/fi';
 
@@ -16,7 +15,6 @@ import 'slick-carousel/slick/slick-theme.css';
 import { TbGridDots } from 'react-icons/tb';
 import { IoIosArrowBack } from "react-icons/io";
 import { BookingPlaceWidget } from '../components';
-import BookingPopUp from '../components/BookingPopUp';
 
 
 

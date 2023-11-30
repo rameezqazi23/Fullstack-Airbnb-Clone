@@ -56,20 +56,15 @@ const BookingPlaceWidget = ({ place }) => {
                             price: totalPrice,
                             _id: place._id
                         })
-                        .then(() => {
-                            setIsLoading(false)
-                            setBookingFormData({
-                                checkIn: '',
-                                checkOut: '',
-                                noOfGuests: 1
-                            })
-                        }).then(() => setIsBookingPopUp(true)
-                        )
-                    // const bookingId = response.bookingFormData._id
-                    setRedirect('true')
-                    console.log("Response============>", response)
-                    // console.log("Booking id=======>", bookingId)
-
+                    setIsLoading(false)
+                    setBookingFormData({
+                        checkIn: '',
+                        checkOut: '',
+                        noOfGuests: 1
+                    })
+                    const bookingId = response.data._id
+                    setIsBookingPopUp(true)
+                    setRedirect(`/account/bookings/${bookingId}`)
 
                 } catch (error) {
                     console.log(error)

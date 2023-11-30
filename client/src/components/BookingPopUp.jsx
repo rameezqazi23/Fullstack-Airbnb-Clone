@@ -26,7 +26,7 @@ const BookingPopUp = ({ setIsBookingPopUp, redirect }) => {
                         </button>
                         <Link
                             className='flex justify-center items-center gap-3 bg-gradient-to-r from-primary to-pink-500 w-[200px] py-2 rounded-lg font-bold text-white mt-6'
-                            to={`/account/bookings/${redirect}`}
+                            to={`${redirect}`}
                         >
                             Check Bookings
                         </Link>

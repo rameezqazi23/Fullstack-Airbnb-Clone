@@ -229,7 +229,7 @@ const PlaceForm = () => {
                     <FormControl mt={4}>
                         <FormLabel>Perks</FormLabel>
                         <p className='text-[14px] text-gray-600 my-2'>Select perks of your place</p>
-                        <div className='grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-6'>
+                        <div className='grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-3'>
 
                             <label className='flex border gap-4 p-4 items-center cursor-pointer rounded-md'>
                                 <Checkbox name='wifi' onChange={handleCheckbox}> Wifi</Checkbox>
@@ -282,35 +282,37 @@ const PlaceForm = () => {
                             required
                             placeholder="Enter extra info" />
                     </FormControl>
+                    <div className='flex gap-6'>
 
-                    <FormControl mt={4}>
-                        <FormLabel>Check In</FormLabel>
-                        <p className='text-[14px] text-gray-600 my-2'>Add available check in time</p>
-                        <Flex align="center">
-                            <Box as={BsClock} fontSize="xl" color="gray.400" />
-                            <Input
-                                onChange={handleInputChange}
-                                name='checkIn'
-                                value={formData.checkIn}
-                                required
-                                type="date" ml={2} />
-                        </Flex>
-                    </FormControl>
+                        <FormControl mt={4}>
+                            <FormLabel>Check In</FormLabel>
+                            <p className='text-[14px] text-gray-600 my-2'>Add available check in time</p>
+                            <Flex align="center">
+                                <Box as={BsCalendar} fontSize="xl" color="gray.400" />
+                                <Input
+                                    onChange={handleInputChange}
+                                    name='checkIn'
+                                    value={formData.checkIn}
+                                    required
+                                    type="date" ml={2} />
+                            </Flex>
+                        </FormControl>
 
-                    <FormControl mt={4}>
-                        <FormLabel>Check Out</FormLabel>
-                        <p className='text-[14px] text-gray-600 my-2'>Add available check out time</p>
+                        <FormControl mt={4}>
+                            <FormLabel>Check Out</FormLabel>
+                            <p className='text-[14px] text-gray-600 my-2'>Add available check out time</p>
 
-                        <Flex align="center">
-                            <Box as={BsCalendar} fontSize="xl" color="gray.400" />
-                            <Input
-                                onChange={handleInputChange}
-                                name="checkOut"
-                                value={formData.checkOut}
-                                required
-                                type="date" ml={2} />
-                        </Flex>
-                    </FormControl>
+                            <Flex align="center">
+                                <Box as={BsCalendar} fontSize="xl" color="gray.400" />
+                                <Input
+                                    onChange={handleInputChange}
+                                    name="checkOut"
+                                    value={formData.checkOut}
+                                    required
+                                    type="date" ml={2} />
+                            </Flex>
+                        </FormControl>
+                    </div>
 
                     <FormControl mt={4}>
                         <FormLabel>Max Guests</FormLabel>

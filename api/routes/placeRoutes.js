@@ -5,6 +5,7 @@ import * as dotenv from "dotenv";
 
 const router = express();
 dotenv.config();
+
 const secretKey = process.env.JWT_SECRET_KEY;
 
 router.post('/places', (req, res) => {
@@ -35,15 +36,33 @@ router.post('/places', (req, res) => {
 
 })
 
-router.get('/places', (req, res) => {
-    const { userToken } = req.cookies;
-    jwt.verify(userToken, secretKey, {}, async (err, userData) => {
-        const { _id } = userData;
-        const placeDoc = await PLACE.find({ owner: _id })
+router.get('/places', async (req, res) => {
+    try {
+        const { userToken } = req.cookies;
 
-        res.json(placeDoc)
-    })
-})
+        if (!userToken) {
+            return res.status(401).json({ error: 'JWT must be provided' });
+        }
+        jwt.verify(userToken, secretKey, {}, async (err, userData) => {
+            if (err) throw err;
+
+            // Check if userData is defined before destructuring
+            if (userData && userData._id) {
+                const { _id } = userData;
+                const placeDoc = await PLACE.find({ owner: _id });
+
+                res.json(placeDoc);
+            } else {
+                res.status(400).json({ error: "User data or user ID not available" });
+            }
+        });
+    } catch (error) {
+        console.log(error.message)
+    }
+
+
+});
+
 
 router.get('/place-page/:id', async (req, res) => {
     const place = await PLACE.findById(req.params.id)

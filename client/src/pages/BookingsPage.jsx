@@ -3,7 +3,6 @@ import { differenceInCalendarDays, format } from 'date-fns'
 import { useEffect, useState } from 'react'
 import { FaCalendarCheck, FaMoneyCheckAlt } from 'react-icons/fa';
 import { MdNightsStay } from 'react-icons/md';
-import { TbCalendarPlus } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
 
 
@@ -34,7 +33,7 @@ const BookingsPage = () => {
 
                                 {format(new Date(booking.checkIn), 'yyyy-MM-dd')} &rarr; {format(new Date(booking.checkOut), 'yyyy-MM-dd')}
                             </p>
-                            <div className='flex gap-2 text-md font-semibold mt-2'>
+                            <div className='flex flex-wrap gap-2 text-md font-semibold mt-2'>
                                 <p className='flex items-center gap-1'>
                                     <MdNightsStay />
                                     {differenceInCalendarDays(new Date(booking.checkOut), new Date(booking.checkIn))} nights |

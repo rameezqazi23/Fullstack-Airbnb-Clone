@@ -17,17 +17,14 @@ const BookingsPage = () => {
     console.log("All my bookings here==>", bookings)
 
 
-
-
-
     return (
         <div className='m-8'>
-            <Link className='grid grid-cols-1 md:grid-cols-2 gap-4 cursor-pointer'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-4 cursor-pointer'>
                 {bookings.length > 0 ? (bookings.map((booking) => (
-                    <div key={booking._id}
-                        className='flex flex-wrap gap-4 bg-gray-100 my-4 rounded-xl overflow-hidden'
+                    <Link to={`/account/booking-page/${booking._id}`} key={booking._id}
+                        className='flex gap-4 bg-gray-100 my-4 rounded-xl overflow-hidden'
                     >
-                        <div className='w-48 flex-wrap'>
+                        <div className='w-48 h-40 flex-wrap'>
                             <img className='w-full h-full object-cover' src={`http://localhost:8000/uploads/${booking.place?.photos[0]}`} alt='photo' />
                         </div>
                         <div className='py-3'>
@@ -50,7 +47,7 @@ const BookingsPage = () => {
                             </div>
 
                         </div>
-                    </div>
+                    </Link>
                 )))
                     :
                     (
@@ -59,7 +56,7 @@ const BookingsPage = () => {
                         </div>
 
                     )}
-            </Link>
+            </div>
         </div>
     )
 }

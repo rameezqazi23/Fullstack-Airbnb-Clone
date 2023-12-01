@@ -74,7 +74,7 @@ const BookingPlaceWidget = ({ place }) => {
                     })
                     const bookingId = response.data._id
                     setIsBookingPopUp(true)
-                    setRedirect(`/account/my-bookings/${bookingId}`)
+                    setRedirect(`/account/booking-page/${bookingId}`)
 
                 } catch (error) {
                     console.log(error)

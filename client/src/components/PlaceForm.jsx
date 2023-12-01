@@ -21,12 +21,11 @@ import { AiFillCar, AiOutlineWifi } from 'react-icons/ai';
 import { PiTelevisionLight } from 'react-icons/pi';
 import { GiOpenGate } from 'react-icons/gi';
 import { FaKitchenSet, FaRegStar, FaStar } from 'react-icons/fa6';
-import { BiSolidWasher, BiCloudUpload, BiSolidTrashAlt } from 'react-icons/bi';
+import { BiSolidWasher, BiCloudUpload } from 'react-icons/bi';
 import { GoTrash } from 'react-icons/go'
 import { TbCalendarPlus } from 'react-icons/tb';
 import axios from 'axios';
 import { useEffect } from 'react';
-import { FaTrashRestore } from 'react-icons/fa';
 const PlaceForm = () => {
 
 

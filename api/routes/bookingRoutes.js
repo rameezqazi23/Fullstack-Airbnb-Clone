@@ -45,7 +45,8 @@ router.post('/bookings', async (req, res) => {
 
 router.get('/bookings', async (req, res) => {
     const userData = await getUserFromToken(req)
-    const bookingDoc = await BOOKING.find({ user: userData._id })
+    const bookingDoc = await BOOKING.find({ user: userData._id }).populate("place")
+
     res.json(bookingDoc)
 })
 

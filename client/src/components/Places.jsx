@@ -38,7 +38,7 @@ const Places = () => {
 
             }
             {action === 'new' &&
-                <div className='m-8'>
+                <div className='mx-3 my-8'>
                     <PlaceForm />
                 </div>
             }

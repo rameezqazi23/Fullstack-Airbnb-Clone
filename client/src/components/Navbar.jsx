@@ -70,7 +70,7 @@ const Navbar = () => {
 
                     <div className={`${!menuToggle ? "hidden" : "flex"}
                         p-6 text-white absolute top-20 right-0 mx-4 my-2 min-w-[180px] z-10 rounded-xl
-                        backdrop-filter backdrop-blur-lg bg-opacity-70 bg-[#f5f5f5] shadow-md`}>
+                        backdrop-filter backdrop-blur-md bg-opacity-70 bg-[#f5f5f5]`}>
 
                         <ul className='list-none flex flex-col gap-4 justify-end items-start'>
                             <li onClick={handlePopUp} className='text-gray-500 hover:text-black text-[16px] font-medium cursor-pointer'>Anywhere</li>
@@ -82,7 +82,7 @@ const Navbar = () => {
 
                     {user &&
                         <div>
-                            <p className='cursor-pointer font-semibold text-gray-500 hover:text-black'>{user.name}</p>
+                            <Link to={'/account'} className='cursor-pointer font-semibold text-gray-500 hover:text-black'>{user.name}</Link>
                         </div>
                     }
 
@@ -91,7 +91,7 @@ const Navbar = () => {
 
                     <div className={`${!toggle ? "hidden" : "flex"}
                  p-6 text-white absolute top-20 right-0 mx-4 my-2 min-w-[180px] z-20 rounded-xl
-                 backdrop-filter backdrop-blur-lg bg-opacity-80 bg-[#e7e6e6] shadow-md`}>
+                 backdrop-filter backdrop-blur-md bg-opacity-70 bg-[#f5f5f5]`}>
 
                         {!user ?
                             (

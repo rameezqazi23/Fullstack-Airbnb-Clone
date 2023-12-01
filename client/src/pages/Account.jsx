@@ -37,10 +37,10 @@ const Account = () => {
 
     return (
 
-        <div className="min-w-[650px] h-screen justify-center mx-auto sm:min-w-0 sm:flex">
+        <div className="w-full h-screen justify-center mx-auto sm:min-w-0 sm:flex">
             <div className="flex flex-col w-full">
-
-                <nav className="w-full flex justify-center mt-8 gap-4 sm:flex-row sm:justify-center">
+            {/* w-full flex flex-wrap justify-center mt-8 gap-4 sm:flex-row sm:justify-center */}
+                <nav className="flex flex-wrap justify-center mt-8 gap-4">
                     <Link to='/account' className={`${toggleDrawer('profile')}`}><AiOutlineUser /> Profile</Link>
                     <Link to='/account/places' className={`${toggleDrawer('places')}`}><BsBuildingAdd /> Accommodations</Link>
                     <Link to='/account/bookings' className={`${toggleDrawer('bookings')}`}><BsCalendar2Plus /> Booking</Link>

@@ -141,7 +141,7 @@ const PlaceForm = () => {
     return (
         <div>
             <h1 className='text-2xl font-semibold text-gray-600 text-center my-6'>Add a new Place</h1>
-            <Flex direction="column" align="center" p={4} className='border border-gray-300 rounded-md mx-auto w-[770px]'>
+            <Flex direction="column" align="center" p={4} className='border border-gray-300 rounded-md mx-auto xl:w-[770px]'>
                 <form onSubmit={handleSubmit}>
                     <FormControl>
                         <FormLabel>Title</FormLabel>
@@ -177,7 +177,7 @@ const PlaceForm = () => {
                                 type="text"
 
                                 placeholder="paste your link here" />
-                            <Button onClick={addPhotoByLink} colorScheme="teal" ml={6}>
+                            <Button onClick={addPhotoByLink} colorScheme="pink" ml={6}>
                                 Add
                             </Button>
                         </Flex>
@@ -232,7 +232,7 @@ const PlaceForm = () => {
                         <div className='grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-3'>
 
                             <label className='flex border gap-4 p-4 items-center cursor-pointer rounded-md'>
-                                <Checkbox name='wifi' onChange={handleCheckbox}> Wifi</Checkbox>
+                                <Checkbox className='text-[10px]' name='wifi' onChange={handleCheckbox}> Wifi</Checkbox>
                                 <AiOutlineWifi size={22} />
                             </label>
 
@@ -282,37 +282,39 @@ const PlaceForm = () => {
                             required
                             placeholder="Enter extra info" />
                     </FormControl>
-                    <div className='flex gap-6'>
+                    {/* <div className='flex gap-6'>
+                        
+                    </div> */}
 
-                        <FormControl mt={4}>
-                            <FormLabel>Check In</FormLabel>
-                            <p className='text-[14px] text-gray-600 my-2'>Add available check in time</p>
-                            <Flex align="center">
-                                <Box as={BsCalendar} fontSize="xl" color="gray.400" />
-                                <Input
-                                    onChange={handleInputChange}
-                                    name='checkIn'
-                                    value={formData.checkIn}
-                                    required
-                                    type="date" ml={2} />
-                            </Flex>
-                        </FormControl>
+                    <FormControl mt={4}>
+                        <FormLabel>Check In</FormLabel>
+                        <p className='text-[14px] text-gray-600 my-2'>Add available check in time</p>
+                        <Flex align="center">
+                            <Box as={BsCalendar} fontSize="xl" color="gray.400" />
+                            <Input
+                                onChange={handleInputChange}
+                                name='checkIn'
+                                value={formData.checkIn}
+                                required
+                                type="date" ml={2} />
+                        </Flex>
+                    </FormControl>
 
-                        <FormControl mt={4}>
-                            <FormLabel>Check Out</FormLabel>
-                            <p className='text-[14px] text-gray-600 my-2'>Add available check out time</p>
+                    <FormControl mt={4}>
+                        <FormLabel>Check Out</FormLabel>
+                        <p className='text-[14px] text-gray-600 my-2'>Add available check out time</p>
 
-                            <Flex align="center">
-                                <Box as={BsCalendar} fontSize="xl" color="gray.400" />
-                                <Input
-                                    onChange={handleInputChange}
-                                    name="checkOut"
-                                    value={formData.checkOut}
-                                    required
-                                    type="date" ml={2} />
-                            </Flex>
-                        </FormControl>
-                    </div>
+                        <Flex align="center">
+                            <Box as={BsCalendar} fontSize="xl" color="gray.400" />
+                            <Input
+                                onChange={handleInputChange}
+                                name="checkOut"
+                                value={formData.checkOut}
+                                required
+                                type="date" ml={2} />
+                        </Flex>
+                    </FormControl>
+
 
                     <FormControl mt={4}>
                         <FormLabel>Max Guests</FormLabel>
@@ -359,7 +361,7 @@ const PlaceForm = () => {
                     </FormControl>
 
 
-                    <Button type='submit' colorScheme="teal" mt={8} w="full">
+                    <Button type='submit' colorScheme="pink" mt={8} w="full">
                         Submit
                     </Button>
                 </form>

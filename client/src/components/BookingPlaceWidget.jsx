@@ -3,11 +3,7 @@ import { differenceInCalendarDays } from 'date-fns'
 import axios from 'axios';
 import { ThreeDots } from 'react-loader-spinner';
 import { BookingPopUp } from '../components';
-import { useNavigate } from "react-router-dom";
 import { UserContext } from '../context/userContext';
-
-// import BookingPopUp from './BookingPopUp';
-
 
 
 const BookingPlaceWidget = ({ place }) => {

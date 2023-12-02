@@ -15,8 +15,11 @@ import {
 
 } from '@chakra-ui/react';
 
+import { ThreeDots } from 'react-loader-spinner';
+
+
 //react-icons
-import { BsClock, BsCalendar, BsPeople, BsCurrencyDollar } from 'react-icons/bs';
+import { BsCalendar, BsPeople, BsCurrencyDollar } from 'react-icons/bs';
 import { AiFillCar, AiOutlineWifi } from 'react-icons/ai';
 import { PiTelevisionLight } from 'react-icons/pi';
 import { GiOpenGate } from 'react-icons/gi';
@@ -26,12 +29,14 @@ import { GoTrash } from 'react-icons/go'
 import { TbCalendarPlus } from 'react-icons/tb';
 import axios from 'axios';
 import { useEffect } from 'react';
-const PlaceForm = () => {
 
+
+const PlaceForm = () => {
 
     const [photoLink, setPhotoLink] = useState("");
     const [addedPhotos, setAddedPhotos] = useState([]);
     const [addPerks, setAddPerks] = useState([]);
+    const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState({
         title: "",
         address: "",
@@ -62,8 +67,12 @@ const PlaceForm = () => {
     //Form data submit handler
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true)
         await axios.post('/places', { formData })
-        navigate('/account/places')
+            .then(() => {
+                setIsLoading(false)
+                navigate('/account/places')
+            })
     }
 
     //Add images by link handler
@@ -361,11 +370,25 @@ const PlaceForm = () => {
                     </FormControl>
 
 
-                    <Button type='submit' colorScheme="pink" mt={8} w="full">
+                    <Button type='submit' className='gap-2' colorScheme="pink" mt={8} w="full">
                         Submit
+                        {isLoading &&
+                            <ThreeDots
+                                height="20"
+                                width="20"
+                                radius="2"
+                                color="white"
+                                ariaLabel="three-dots-loading"
+                                wrapperStyle={{}}
+                                wrapperClassName=""
+                                visible={true}
+                            />
+                        }
                     </Button>
                 </form>
             </Flex>
+
+           
 
 
         </div>

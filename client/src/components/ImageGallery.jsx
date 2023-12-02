@@ -1,12 +1,12 @@
 import { TbGridDots } from 'react-icons/tb';
 
 
-const ImageGallery = ({ place,setShowAllPhotos }) => {
-    
+const ImageGallery = ({ place, setShowAllPhotos }) => {
+
 
     return (
         <div>
-
+            {/* 
             <div className='relative'>
                 <div className='my-8 grid gap-2 grid-cols-[2fr_1fr] rounded-xl overflow-hidden'>
                     <div>
@@ -37,6 +37,37 @@ const ImageGallery = ({ place,setShowAllPhotos }) => {
                         <TbGridDots />
                         Show all photos
                     </button>
+                </div>
+            </div> */}
+
+
+
+            <div className='grid grid-cols-1 sm:grid-cols-2 col-span-2 gap-2 my-8 rounded-xl overflow-hidden'>
+                <div className='aspect-square object-cover w-full h-full'>
+                    {place.photos?.[0] && (
+                        <img className='w-full h-full' src={`http://localhost:8000/uploads/${place?.photos[0]}`} alt="places" />
+                    )}
+                </div>
+                <div className='grid grid-cols-1 sm:grid-cols-2 gap-2'>
+                    <div className='aspect-square object-cover w-full'>
+                        {place.photos?.[1] && (
+                            <img className='w-full h-full' src={`http://localhost:8000/uploads/${place?.photos[1]}`} alt="places" />
+                        )}
+                    </div>
+                    <div className='aspect-square object-cover w-full'>
+                        {place.photos?.[2] && (
+                            <img className='w-full h-full' src={`http://localhost:8000/uploads/${place?.photos[2]}`} alt="places" />
+                        )}
+                    </div>
+                    <div className='aspect-square object-cover w-full'>
+                        {place.photos?.[2] && (
+                            <img className='w-full h-full' src={`http://localhost:8000/uploads/${place?.photos[2]}`} alt="places" />
+                        )}
+                    </div> <div className='aspect-square object-cover w-full'>
+                        {place.photos?.[2] && (
+                            <img className='w-full h-full' src={`http://localhost:8000/uploads/${place?.photos[2]}`} alt="places" />
+                        )}
+                    </div>
                 </div>
             </div>
 

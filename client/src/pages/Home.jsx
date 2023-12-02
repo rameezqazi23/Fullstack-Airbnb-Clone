@@ -1,17 +1,16 @@
-import { useContext } from "react"
-import { PlaceContext } from "../context/placeContext"
-import ListingCard from "../components/ListingCard"
+import { useContext } from "react";
+import { PlaceContext } from "../context/placeContext";
+import ListingCard from "../components/ListingCard";
 
 const Home = () => {
+  const { allPlaces } = useContext(PlaceContext);
+  console.log("All places==>", allPlaces);
 
-    const { allPlaces } = useContext(PlaceContext)
-    console.log("All places==>", allPlaces)
+  return (
+    <div>
+      <ListingCard myPlaces={allPlaces} />
+    </div>
+  );
+};
 
-    return (
-        <div>
-            <ListingCard myPlaces={allPlaces} />
-        </div>
-    )
-}
-
-export default Home
+export default Home;

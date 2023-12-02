@@ -1,15 +1,10 @@
-import { useParams } from 'react-router-dom'
-import PlacePage from './PlacePage'
+import { useParams } from "react-router-dom";
+import PlacePage from "./PlacePage";
 
 const BookingPage = () => {
-    const { id } = useParams()
+  const { id } = useParams();
 
-    return (
-        <div>
-            Hello
+  return <div>Hello</div>;
+};
 
-        </div>
-    )
-}
-
-export default BookingPage
+export default BookingPage;

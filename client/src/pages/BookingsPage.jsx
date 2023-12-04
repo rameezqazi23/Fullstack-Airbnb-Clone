@@ -4,19 +4,24 @@ import { useEffect, useState } from "react";
 import { FaCalendarCheck, FaMoneyCheckAlt } from "react-icons/fa";
 import { MdNightsStay } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { ContentLoaderBookings } from "../components";
 
 const BookingsPage = () => {
   const [bookings, setBookings] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axios.get("/bookings").then(({ data }) => setBookings(data));
+    axios.get("/bookings").then(({ data }) => {
+      setBookings(data);
+      setIsLoading(false);
+    });
   }, []);
   console.log("All my bookings here==>", bookings);
 
   return (
     <div className="m-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 cursor-pointer">
-        {bookings.length > 0 ? (
+        {!isLoading ? (
           bookings.map((booking) => (
             <Link
               to={`/account/booking-page/${booking._id}`}
@@ -57,7 +62,7 @@ const BookingsPage = () => {
             </Link>
           ))
         ) : (
-          <div>Loading...</div>
+          <ContentLoaderBookings myBookings={4} />
         )}
       </div>
     </div>

@@ -1,14 +1,10 @@
-import { useContext } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
 import { ContentLoaderHome } from "../components";
 
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-
-const ListingCard = ({ myPlaces, isLoading, setIsLoading }) => {
+const ListingCard = ({ myPlaces, isLoading }) => {
   const settings = {
     infinite: true,
     slidesToShow: 1,
@@ -25,8 +21,6 @@ const ListingCard = ({ myPlaces, isLoading, setIsLoading }) => {
 
   return (
     <div className="flex flex-wrap mx-4 gap-8 mt-8">
-      {/* <ContentLoaderHome /> */}
-
       {!isLoading ? (
         myPlaces.map((place) => (
           <Link

@@ -5,3 +5,4 @@ export { default as BookingPlaceWidget } from './BookingPlaceWidget';
 export { default as BookingPopUp } from './BookingPopUp';
 export { default as ImageGallery } from './ImageGallery';
 export { default as ContentLoaderHome } from './ContentLoaderHome';
+export { default as ContentLoaderBookings } from './ContentLoaderBookings';

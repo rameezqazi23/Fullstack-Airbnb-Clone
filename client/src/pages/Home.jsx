@@ -3,12 +3,16 @@ import { PlaceContext } from "../context/placeContext";
 import ListingCard from "../components/ListingCard";
 
 const Home = () => {
-  const { allPlaces } = useContext(PlaceContext);
+  const { allPlaces, isLoading, setIsLoading } = useContext(PlaceContext);
   console.log("All places==>", allPlaces);
 
   return (
     <div>
-      <ListingCard myPlaces={allPlaces} />
+      <ListingCard
+        myPlaces={allPlaces}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+      />
     </div>
   );
 };

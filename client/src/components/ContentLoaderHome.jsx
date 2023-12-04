@@ -1,102 +1,31 @@
-import ContentLoader from "react-content-loader";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
-const ContentLoaderHome = (props) => {
-  return (
-    <div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {[...Array(4)].map((_, index) => (
-          <ContentLoader
-            key={index}
-            viewBox="0 0 1360 900"
-            height={900}
-            width={1300}
-            {...props}
-          >
-            <rect x="30" y="20" rx="8" ry="8" width="200" height="200" />
-            <rect x="30" y="250" rx="0" ry="0" width="200" height="18" />
-            <rect x="30" y="275" rx="0" ry="0" width="120" height="20" />
-            <rect x="250" y="20" rx="8" ry="8" width="200" height="200" />
-            <rect x="250" y="250" rx="0" ry="0" width="200" height="18" />
-            <rect x="250" y="275" rx="0" ry="0" width="120" height="20" />
-            <rect x="470" y="20" rx="8" ry="8" width="200" height="200" />
-            <rect x="470" y="250" rx="0" ry="0" width="200" height="18" />
-            <rect x="470" y="275" rx="0" ry="0" width="120" height="20" />
-            <rect x="690" y="20" rx="8" ry="8" width="200" height="200" />
-            <rect x="690" y="250" rx="0" ry="0" width="200" height="18" />
-            <rect x="690" y="275" rx="0" ry="0" width="120" height="20" />
-            <rect x="910" y="20" rx="8" ry="8" width="200" height="200" />
-            <rect x="910" y="250" rx="0" ry="0" width="200" height="18" />
-            <rect x="910" y="275" rx="0" ry="0" width="120" height="20" />
-            <rect x="1130" y="20" rx="8" ry="8" width="200" height="200" />
-            <rect x="1130" y="250" rx="0" ry="0" width="200" height="18" />
-            <rect x="1130" y="275" rx="0" ry="0" width="120" height="20" />
-            <rect x="30" y="340" rx="8" ry="8" width="200" height="200" />
-            <rect x="30" y="570" rx="0" ry="0" width="200" height="18" />
-            <rect x="30" y="595" rx="0" ry="0" width="120" height="20" />
-            <rect x="250" y="340" rx="8" ry="8" width="200" height="200" />
-            <rect x="250" y="570" rx="0" ry="0" width="200" height="18" />
-            <rect x="250" y="595" rx="0" ry="0" width="120" height="20" />
-            <rect x="470" y="340" rx="8" ry="8" width="200" height="200" />
-            <rect x="470" y="570" rx="0" ry="0" width="200" height="18" />
-            <rect x="470" y="595" rx="0" ry="0" width="120" height="20" />
-            <rect x="690" y="340" rx="8" ry="8" width="200" height="200" />
-            <rect x="690" y="570" rx="0" ry="0" width="200" height="18" />
-            <rect x="690" y="595" rx="0" ry="0" width="120" height="20" />
-            <rect x="910" y="340" rx="8" ry="8" width="200" height="200" />
-            <rect x="910" y="570" rx="0" ry="0" width="200" height="18" />
-            <rect x="910" y="595" rx="0" ry="0" width="120" height="20" />
-            <rect x="1130" y="340" rx="8" ry="8" width="200" height="200" />
-            <rect x="1130" y="570" rx="0" ry="0" width="200" height="18" />
-            <rect x="1130" y="595" rx="0" ry="0" width="120" height="20" />
-          </ContentLoader>
-        ))}
-      </div>
-
-      {/* <ContentLoader
-        viewBox="0 0 1360 900"
-        height={900}
-        width={1300}
-        {...props}
+const ContentLoaderHome = ({ place }) => {
+  return Array(place)
+    .fill(0)
+    .map((item) => (
+      <div
+        key={item}
+        className="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 max-w-md mx-auto overflow-hidden"
       >
-        <rect x="30" y="20" rx="8" ry="8" width="200" height="200" />
-        <rect x="30" y="250" rx="0" ry="0" width="200" height="18" />
-        <rect x="30" y="275" rx="0" ry="0" width="120" height="20" />
-        <rect x="250" y="20" rx="8" ry="8" width="200" height="200" />
-        <rect x="250" y="250" rx="0" ry="0" width="200" height="18" />
-        <rect x="250" y="275" rx="0" ry="0" width="120" height="20" />
-        <rect x="470" y="20" rx="8" ry="8" width="200" height="200" />
-        <rect x="470" y="250" rx="0" ry="0" width="200" height="18" />
-        <rect x="470" y="275" rx="0" ry="0" width="120" height="20" />
-        <rect x="690" y="20" rx="8" ry="8" width="200" height="200" />
-        <rect x="690" y="250" rx="0" ry="0" width="200" height="18" />
-        <rect x="690" y="275" rx="0" ry="0" width="120" height="20" />
-        <rect x="910" y="20" rx="8" ry="8" width="200" height="200" />
-        <rect x="910" y="250" rx="0" ry="0" width="200" height="18" />
-        <rect x="910" y="275" rx="0" ry="0" width="120" height="20" />
-        <rect x="1130" y="20" rx="8" ry="8" width="200" height="200" />
-        <rect x="1130" y="250" rx="0" ry="0" width="200" height="18" />
-        <rect x="1130" y="275" rx="0" ry="0" width="120" height="20" />
-        <rect x="30" y="340" rx="8" ry="8" width="200" height="200" />
-        <rect x="30" y="570" rx="0" ry="0" width="200" height="18" />
-        <rect x="30" y="595" rx="0" ry="0" width="120" height="20" />
-        <rect x="250" y="340" rx="8" ry="8" width="200" height="200" />
-        <rect x="250" y="570" rx="0" ry="0" width="200" height="18" />
-        <rect x="250" y="595" rx="0" ry="0" width="120" height="20" />
-        <rect x="470" y="340" rx="8" ry="8" width="200" height="200" />
-        <rect x="470" y="570" rx="0" ry="0" width="200" height="18" />
-        <rect x="470" y="595" rx="0" ry="0" width="120" height="20" />
-        <rect x="690" y="340" rx="8" ry="8" width="200" height="200" />
-        <rect x="690" y="570" rx="0" ry="0" width="200" height="18" />
-        <rect x="690" y="595" rx="0" ry="0" width="120" height="20" />
-        <rect x="910" y="340" rx="8" ry="8" width="200" height="200" />
-        <rect x="910" y="570" rx="0" ry="0" width="200" height="18" />
-        <rect x="910" y="595" rx="0" ry="0" width="120" height="20" />
-        <rect x="1130" y="340" rx="8" ry="8" width="200" height="200" />
-        <rect x="1130" y="570" rx="0" ry="0" width="200" height="18" />
-        <rect x="1130" y="595" rx="0" ry="0" width="120" height="20" />
-      </ContentLoader> */}
-    </div>
-  );
+        <Skeleton height={200} />
+        <div className="mt-6">
+          <h3 className="text-md text-black font-semibold">
+            <Skeleton />
+          </h3>
+          <p className="text-gray-500 truncate">
+            <Skeleton count={2} />
+          </p>
+          <p className="text-gray-500 mb-2">
+            <Skeleton count={2} />
+          </p>
+          <p className="font-semibold text-black">
+            <Skeleton width={80} />
+          </p>
+        </div>
+      </div>
+    ));
 };
 
 export default ContentLoaderHome;

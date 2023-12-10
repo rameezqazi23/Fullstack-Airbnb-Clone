@@ -21,8 +21,8 @@ const PlacePage = () => {
 
   const { places } = useContext(PlaceContext);
   const { user } = useContext(UserContext);
-  // const result = places.map((place) => (place._id))
   const { id } = useParams();
+  // const result = places.map((place) => (place._id))
   // console.log("Params id", places)
 
   useEffect(() => {

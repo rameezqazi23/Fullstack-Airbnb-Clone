@@ -22,7 +22,7 @@ import { MdNightsStay } from "react-icons/md";
 
 const BookingPage = () => {
   const { id } = useParams();
-  const [currentBookingData, setCurrentBookingData] = useState('');
+  const [currentBookingData, setCurrentBookingData] = useState();
   const [showAllPhotos, setShowAllPhotos] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -89,6 +89,8 @@ const BookingPage = () => {
     afterChange: (current) => setCurrentSlide(current),
   };
 
+  console.log("Current Booking Data====>", currentBookingData);
+
   return (
     <div>
       {/* <ImageGallery
@@ -135,10 +137,11 @@ const BookingPage = () => {
 
         {/* Booking Details Card */}
         <div className="bg-gray-200 p-4 my-4 rounded-xl">
-          <div className="flex items-center py-3 gap-10">
-            <h2 className="text-lg font-semibold lg:text-lg">
+          <div className="flex items-center py-3 px-8 gap-4">
+            <h2 className="text-lg font-semibold">
               Booking Info:
             </h2>
+          
             <p className=" flex items-center pt-2 gap-4 text-sm">
               <FaCalendarCheck />
               {format(new Date(currentBookingData.checkIn), "yyyy-MM-dd")}{" "}
@@ -159,6 +162,7 @@ const BookingPage = () => {
                 Total Price: ${currentBookingData.price}
               </p>
             </div>
+
           </div>
         </div>
 
